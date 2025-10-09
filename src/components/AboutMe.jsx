@@ -11,66 +11,67 @@ const AboutMe = ({ fullPage = false }) => {
     const generateResponse = (message) => {
         const lowerMessage = message.toLowerCase();
         const { personal_info, education } = resumeData;
-        
+
         // Basic greetings
         if (lowerMessage.includes('hi') || lowerMessage.includes('hello')) {
             return `Hello! I'm ${personal_info.name}, a ${education.major} student at ${education.institution}. How can I assist you today?`;
         }
-        
+
         // About me
         if (lowerMessage.includes('who are you') || lowerMessage.includes('about you')) {
             return `I'm ${personal_info.name}, a ${education.major} student at ${education.institution} with a passion for programming, teaching, and technology.`;
         }
-        
+
         // Experience & Leadership
         if (lowerMessage.includes('experience') || lowerMessage.includes('work') || lowerMessage.includes('job') || lowerMessage.includes('leadership')) {
             return resumeData.experience_and_leadership.map(exp => (
-                `**${exp.title} at ${exp.organization}** (${exp.dates})\n                ${exp.description}`
+                `**${exp.title} at ${exp.organization}** (${exp.dates})
+                ${exp.description}`
             )).join('\n\n');
         }
-        
+
         // Skills
         if (lowerMessage.includes('skill') || lowerMessage.includes('technology') || lowerMessage.includes('tech stack')) {
             const { programming_and_technologies, languages } = resumeData.skills;
             return `Here are my skills and technologies I work with:\n` +
-                   `• Proficient: ${programming_and_technologies.proficient.join(', ')}\n` +
-                   `• Intermediate: ${programming_and_technologies.intermediate.join(', ')}\n` +
-                   `• Familiar: ${programming_and_technologies.familiar.join(', ')}\n\n` +
-                   `Languages: ${Object.entries(languages).map(([lang, level]) => `${lang} (${level})`).join(', ')}`;
+                `• Proficient: ${programming_and_technologies.proficient.join(', ')}\n` +
+                `• Intermediate: ${programming_and_technologies.intermediate.join(', ')}\n` +
+                `• Familiar: ${programming_and_technologies.familiar.join(', ')}\n\n` +
+                `Languages: ${Object.entries(languages).map(([lang, level]) => `${lang} (${level})`).join(', ')}`;
         }
-        
+
         // Projects & Competitions
         if (lowerMessage.includes('project') || lowerMessage.includes('competition')) {
-            return resumeData.projects_and_competitions.map(proj => 
+            return resumeData.projects_and_competitions.map(proj =>
                 `**${proj.name}** (${proj.date})\n${proj.description}`
             ).join('\n\n');
         }
-        
+
         // Contact
         if (lowerMessage.includes('contact') || lowerMessage.includes('email') || lowerMessage.includes('reach')) {
             return `You can contact me through:\n` +
-                   `• Email: ${personal_info.email}\n` +
-                   `• LinkedIn: ${personal_info.linkedin}\n` +
-                   `• GitHub: ${personal_info.github}`;
+                `• Email: ${personal_info.email}\n` +
+                `• LinkedIn: ${personal_info.linkedin}\n` +
+                `• GitHub: ${personal_info.github}`;
         }
-        
+
         // Education
         if (lowerMessage.includes('education') || lowerMessage.includes('degree') || lowerMessage.includes('study')) {
             const { education } = resumeData;
             return `**${education.major}**\n` +
-                   `${education.institution} (Expected ${education.expected_graduation})\n` +
-                   `GPA: ${education.gpa}\n\n` +
-                   `Relevant Coursework:\n` +
-                   education.relevant_coursework.map(course => `• ${course}`).join('\n');
+                `${education.institution} (Expected ${education.expected_graduation})\n` +
+                `GPA: ${education.gpa}\n\n` +
+                `Relevant Coursework:\n` +
+                education.relevant_coursework.map(course => `• ${course}`).join('\n');
         }
-        
+
         // Default response
         return `I'm sorry, I didn't understand your question. Here are some things you can ask me about:\n` +
-               `• My experience\n` +
-               `• My skills and technologies\n` +
-               `• My projects\n` +
-               `• My education\n` +
-               `• How to contact me`;
+            `• My experience\n` +
+            `• My skills and technologies\n` +
+            `• My projects\n` +
+            `• My education\n` +
+            `• How to contact me`;
     };
 
     const commonQuestions = [
@@ -164,8 +165,8 @@ const AboutMe = ({ fullPage = false }) => {
                         >
                             <div
                                 className={`max-w-[85%] rounded-2xl p-4 ${message.sender === 'user'
-                                        ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-br-none'
-                                        : 'bg-gray-800/80 text-gray-100 rounded-bl-none backdrop-blur-sm'
+                                    ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-br-none'
+                                    : 'bg-gray-800/80 text-gray-100 rounded-bl-none backdrop-blur-sm'
                                     } shadow-lg transform transition-all duration-200 hover:scale-[1.02]`}
                             >
                                 <p className="leading-relaxed">{message.text}</p>

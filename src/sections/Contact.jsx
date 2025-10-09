@@ -1,12 +1,13 @@
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-
+import { motion, AnimatePresence } from "framer-motion";
 import TitleHeader from "../components/TitleHeader";
 import ContactExperience from "../components/models/contact/ContactExperience";
 
 const Contact = () => {
   const formRef = useRef(null);
   const [loading, setLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -20,7 +21,8 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Show loading state
+    setLoading(true);
+    setIsSubmitted(false); // Reset submission state
 
     try {
       await emailjs.sendForm(
@@ -29,26 +31,60 @@ const Contact = () => {
         formRef.current,
         import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
       );
-
-      // Reset form and stop loading
+      
+      // Clear the form
       setForm({ name: "", email: "", message: "" });
+      
+      // Show success message after a short delay to ensure smooth transition
+      setTimeout(() => {
+        setLoading(false);
+        setIsSubmitted(true);
+        
+        // Hide success message after 3 seconds
+        setTimeout(() => {
+          setIsSubmitted(false);
+        }, 3000);
+      }, 1000); // 1 second delay to show loading state
+      
     } catch (error) {
-      console.error("EmailJS Error:", error); // Optional: show toast
-    } finally {
-      setLoading(false); // Always stop loading, even on error
+      console.error("Failed to send email:", error);
+      setLoading(false);
+      alert("Algo salió mal. Por favor, inténtalo de nuevo más tarde.");
     }
   };
 
   return (
-    <section id="contact" className="flex-center section-padding">
+    <section id="contact" className="flex-center section-padding relative">
+      {/* Success Message */}
+      <AnimatePresence>
+        {isSubmitted && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed top-6 right-6 z-50 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            <span>¡Mensaje enviado con éxito!</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="w-full h-full md:px-10 px-5">
         <TitleHeader
-          title="Get in Touch – Let’s Connect"
-          sub="💬 Have questions or ideas? Let’s talk! 🚀"
+          title="Contáctame – Estoy listo para ayudarte"
+          sub="💬 ¿Tienes preguntas o ideas? ¡Hablemos! 🚀"
         />
         <div className="grid-12-cols mt-16">
           <div className="xl:col-span-5">
-            <div className="flex-center card-border rounded-xl p-10">
+            <div className="relative flex-center card-border rounded-xl p-10">
+              {loading && (
+                <div className="absolute inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center rounded-xl z-10">
+                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+                </div>
+              )}
               <form
                 ref={formRef}
                 onSubmit={handleSubmit}
@@ -62,7 +98,7 @@ const Contact = () => {
                     name="name"
                     value={form.name}
                     onChange={handleChange}
-                    placeholder="What’s your good name?"
+                    placeholder="What's your good name?"
                     required
                   />
                 </div>
@@ -75,7 +111,7 @@ const Contact = () => {
                     name="email"
                     value={form.email}
                     onChange={handleChange}
-                    placeholder="What’s your email address?"
+                    placeholder="What's your email address?"
                     required
                   />
                 </div>

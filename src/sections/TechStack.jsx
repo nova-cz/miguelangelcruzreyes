@@ -7,12 +7,8 @@ import { techStackIcons } from "../constants";
 // import { techStackImgs } from "../constants";
 
 const TechStack = () => {
-  // Animate the tech cards in the skills section
   useGSAP(() => {
-    // This animation is triggered when the user scrolls to the #skills wrapper
-    // The animation starts when the top of the wrapper is at the center of the screen
-    // The animation is staggered, meaning each card will animate in sequence
-    // The animation ease is set to "power2.inOut", which is a slow-in fast-out ease
+ 
     gsap.fromTo(
       ".tech-card",
       {

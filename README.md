@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Miguel Ángel Cruz Reyes</h1>
+  <h1>Miguel Angel Cruz Reyes</h1>
   <h2>Portafolio Profesional</h2>
   
   <div>

@@ -1,0 +1,155 @@
+{
+    "personal_info": {
+      "name": "Miguel Angel CRUZ REYES",
+      "phone": "(+52) 2212848351",
+      "email": "cruzmiguelangel858@gmail.com",
+      "github": "github.com/nova-cz",
+      "linkedin": "linkedin.com/in/miguelcr4",
+      "location": "Puebla, México"
+    },
+    "education": {
+      "institution": "Benemérita Universidad Autónoma de Puebla (BUAP)",
+      "major": "Computer Science Engineering",
+      "gpa": "3.9/4.0",
+      "location": "Puebla, Mexico",
+      "expected_graduation": "December 2025",
+      "relevant_coursework": [
+        "Data Structures",
+        "Object-Oriented Programming",
+        "Advanced Databases",
+        "Operating Systems",
+        "Cybersecurity",
+        "Web Applications",
+        "CISO",
+        "Networking",
+        "Robotics",
+        "IoT",
+        "Artificial Intelligence",
+        "Networking",
+        "Linear Algebra",
+        "Discrete Math"
+      ]
+    },
+    "experience_and_leadership": [
+      {
+        "title": "Competitive Programming Club",
+        "organization": "ICPC, Benemérita Universidad Autónoma de Puebla",
+        "location": "Puebla, Mexico",
+        "dates": "June 2022-December 2024",
+        "description": "Co-founded university ICPC club; teach algorithms and data structures to 15+ students. Lead C++ sessions on Dijkstra's, binary search, DFS/BFS, segment trees, and mathematics."
+      },
+      {
+        "title": "Mentor",
+        "organization": "ROBOTICS FTC (FIRST Tech Challenge) AZTROID",
+        "location": "Puebla, Mexico",
+        "dates": "May 2024-Present",
+        "description": "Instructed students in 3D modeling with Onshape and SolidWorks, mechanics, electronics, and programming in C++ and Java. Guided 30+ middle and high school students, strengthening core STEM skills and leading a team."
+      },
+      {
+        "title": "Judge and Mentor",
+        "organization": "Legion Kids initiative",
+        "location": "Puebla, Mexico",
+        "dates": "April 2024",
+        "description": "Founded and led Legion Kids, a program supporting children with post-pandemic learning gaps. Taught core concepts in math and English, including foundational topics in arithmetic and grammar, to 22 children aged 9-11."
+      },
+      {
+        "title": "Math Instructor",
+        "organization": "SAFIRO - Educational Volunteering in the Sierra Norte",
+        "location": "Puebla, Mexico",
+        "dates": "Summer 2022",
+        "description": "Taught math to 30+ children (ages 6-12) across 4 groups in rural, low-resource communities. Applied tailored pedagogical methods to build logic, problem-solving, and engagement in learning."
+      }
+    ],
+    "projects_and_competitions": [
+      {
+        "name": "Expense Tracker",
+        "date": "March 2025",
+        "description": "Built finance app with customizable categories, transaction history, multi-currency support, and secure iCloud backup. Built using Figma, Swift and SwiftUI, integrating SwiftUICharts, Collections, and UIFontIcon for an optimized and refined UI."
+      },
+      {
+        "name": "Vetopolis",
+        "date": "March 2025- Present",
+        "description": "Built Vetopolis, a web app that helps users easily find veterinarians and book appointments. Developed with Figma, React.js, Node.js, and Firebase to ensure security, scalability, and a smooth user experience."
+      },
+      {
+        "name": "Track My Bus",
+        "date": "March 2024",
+        "description": "Developed a mobile app providing real-time bus tracking and arrival updates for my university. Built with Figma, Dart in IntelliJ IDEA, integrating Google Maps APIs for live tracking."
+      },
+      {
+        "name": "Star-Delta Circuit Calculator",
+        "date": "December 2024",
+        "description": "Developed a web app with Figma, TypeScript, CSS, and HTML to simplify voltage/current calculations in star and delta circuits. Used by Computer Engineering students as a support tool for mastering circuit analysis coursework."
+      },
+      {
+        "name": "Algorithm & Data Structure Visualizer",
+        "date": "November 2024",
+        "description": "Built a visualizer with Vite and React.tsx for algorithms and data structures. Included Dijkstra's and graph traversal to show shortest path logic."
+      },
+      {
+        "name": "3D Modeling Manual | Onshape",
+        "date": "November 2023 - April 2024",
+        "description": "Built a comprehensive guide to Onshape, covering interface mastery and practical exercises on essential tools. Designed a final project to apply and reinforce 3D modeling skills."
+      },
+      {
+        "name": "Assembly-Terminal",
+        "date": "December 2023",
+        "description": "Built a terminal interface in Assembly to run an interactive Hangman game. Used binary and hexadecimal operations for low-level I/O and game logic handling."
+      }
+    ],
+    "awards": [
+      {
+        "competition": "FEPRO - TrackMyBus",
+        "date": "September-2024",
+        "achievement": "Participation in the FEPRO programming tournament, ranked 4th in the advanced software applications category."
+      },
+      {
+        "competition": "FEPRO",
+        "date": "September-2024 (Presumed)",
+        "achievement": "Participation in the FEPRO programming tournament, ranked 2nd."
+      },
+      {
+        "competition": "Talent Land Hackathon (Capital One track)",
+        "date": "April - 2025",
+        "achievement": "Placing 7th and presenting the proposal with the project SATelite."
+      },
+      {
+        "competition": "First Tech Challengue (FIRST)",
+        "date": "2019-2022",
+        "achievement": "Classification to National Robotics Competition, in Torreón, Mexico. Ranked 6th of 30. Awarded the Control Award for outstanding participation and performance during the matches."
+      }
+    ],
+    "skills": {
+      "programming_and_technologies": {
+        "proficient": [
+          "C/C++",
+          "Python",
+          "JavaScript",
+          "TypeScript",
+          "React",
+          "Next.js",
+          "Figma",
+          "Git"
+        ],
+        "intermediate": [
+          "Java",
+          "SQL",
+          "Supabase",
+          "Firebase",
+          "Node.js",
+          "FastAPI",
+          "Django",
+          "Angular",
+          "Swift",
+          "React Native"
+        ],
+        "familiar": ["Kotlin", "Go", "Docker"]
+      },
+      "languages": {
+        "spanish": "native",
+        "english": "C1",
+        "german": "A1"
+      }
+    }
+  }
+  

@@ -15,7 +15,8 @@ const Home = () => (
   <Fragment>
     <Hero />
     <ShowcaseSection />
-    <LogoShowcase />
+
+    {/* <LogoShowcase /> */}
     <FeatureCards />
     <Experience />
     <TechStack />

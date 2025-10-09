@@ -51,8 +51,7 @@ const Hero = () => {
             </div>
 
             <p className="text-white-50 md:text-xl relative z-10 pointer-events-none">
-              Hi, I'm Miguel, a Computer Science student at BUAP with a passion for
-              programming, teaching, and technology.
+              Hi, I'm Miguel, a passionate developer.
             </p>
 
             <Button

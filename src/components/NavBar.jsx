@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { navLinks } from "../constants";
 
 const NavBar = () => {
@@ -7,25 +7,23 @@ const NavBar = () => {
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHomePage = location.pathname === '/';
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      // Mostrar navbar si estamos en la parte superior (menos de 100px)
       if (currentScrollY < 100) {
         setVisible(true);
         setScrolled(false);
       } else {
-        // Si scrolleamos hacia arriba, mostrar navbar
         if (currentScrollY < lastScrollY) {
           setVisible(true);
-        }
-        // Si scrolleamos hacia abajo, ocultar navbar
-        else if (currentScrollY > lastScrollY) {
+        } else if (currentScrollY > lastScrollY) {
           setVisible(false);
         }
-        
-        // Cambiar estado de "scrolled" para estilos
         setScrolled(currentScrollY > 10);
       }
 
@@ -36,8 +34,53 @@ const NavBar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
-  const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  const handleNavClick = (e, link) => {
+    if (link === '/about-me') {
+      if (!isHomePage) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      return;
+    }
+
+    if (link.startsWith('#')) {
+      e.preventDefault();
+      
+      if (isHomePage) {
+        const element = document.querySelector(link);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        navigate('/');
+        setTimeout(() => {
+          const element = document.querySelector(link);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      }
+    }
+  };
+
+  const handleContactClick = (e) => {
+    e.preventDefault();
+    
+    if (isHomePage) {
+      const element = document.querySelector('#contact');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        const element = document.querySelector('#contact');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  };
 
   return (
     <header 
@@ -56,69 +99,35 @@ const NavBar = () => {
 
         <nav className="desktop">
           <ul>
-            {navLinks.map(({ link, name }) => {
-              if (isHomePage) {
-                if (name === 'About Me') {
-                  return (
-                    <li key={name} className="group">
-                      <Link to="/about-me" onClick={(e) => {
-                        e.preventDefault();
-                        window.scrollTo(0, 0);
-                        window.location.href = '/about-me';
-                      }}>
-                        <span>{name}</span>
-                        <span className="underline" />
-                      </Link>
-                    </li>
-                  );
-                } else {
-                  return (
-                    <li key={name} className="group">
-                      <a href={link}>
-                        <span>{name}</span>
-                        <span className="underline" />
-                      </a>
-                    </li>
-                  );
-                }
-              } else {
-                if (link.startsWith('#')) {
-                  return (
-                    <li key={name} className="group">
-                      <Link to={`/${link}`}>
-                        <span>{name}</span>
-                        <span className="underline" />
-                      </Link>
-                    </li>
-                  );
-                } else {
-                  return (
-                    <li key={name} className="group">
-                      <Link to={link}>
-                        <span>{name}</span>
-                        <span className="underline" />
-                      </Link>
-                    </li>
-                  );
-                }
-              }
-            })}
+            {navLinks.map(({ link, name }) => (
+              <li key={name} className="group">
+                {link === '/about-me' ? (
+                  <Link 
+                    to={link}
+                    onClick={(e) => handleNavClick(e, link)}
+                  >
+                    <span>{name}</span>
+                    <span className="underline" />
+                  </Link>
+                ) : (
+                  <a 
+                    href={link}
+                    onClick={(e) => handleNavClick(e, link)}
+                  >
+                    <span>{name}</span>
+                    <span className="underline" />
+                  </a>
+                )}
+              </li>
+            ))}
           </ul>
         </nav>
 
-        {isHomePage ? (
-          <a href="#contact" className="contact-btn group">
-            <div className="inner">
-              <span>Contact me</span>
-            </div>
-          </a>
-        ) : (
-          <Link to="/#contact" className="contact-btn group">
-            <div className="inner">
-              <span>Contact me</span>
-            </div>
-          </Link>
-        )}
+        <button onClick={handleContactClick} className="contact-btn group">
+          <div className="inner">
+            <span>Contact me</span>
+          </div>
+        </button>
       </div>
     </header>
   );

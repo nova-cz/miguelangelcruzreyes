@@ -1,8 +1,12 @@
 import { Github, Linkedin, Instagram, ArrowUp } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom"; // ← Agregar esto
 
 const Footer = () => {
     const [showScrollTop, setShowScrollTop] = useState(false);
+    const navigate = useNavigate(); // ← Agregar esto
+    const location = useLocation(); // ← Agregar esto
+    const isHomePage = location.pathname === '/'; // ← Agregar esto
 
     useEffect(() => {
         const handleScroll = () => {
@@ -12,6 +16,28 @@ const Footer = () => {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    // ← Agregar esta función
+    const handleQuickLinkClick = (e, href) => {
+        e.preventDefault();
+
+        if (href.startsWith('#')) {
+            if (isHomePage) {
+                const element = document.querySelector(href);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            } else {
+                navigate('/');
+                setTimeout(() => {
+                    const element = document.querySelector(href);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }, 100);
+            }
+        }
+    };
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -148,16 +174,32 @@ const Footer = () => {
                     <div className="flex flex-col justify-center items-end text-right space-y-4 animate-slideUpIn" style={{ animationDelay: "0.1s" }}>
                         <h4 className="text-lg font-semibold text-white mb-2">Quick Links</h4>
                         <nav className="space-y-3 text-gray-400">
-                            <a href="#hero" className="block hover:text-white transition-colors duration-300 group">
+                            <a
+                                href="#hero"
+                                onClick={(e) => handleQuickLinkClick(e, '#hero')}
+                                className="block hover:text-white transition-colors duration-300 group cursor-pointer"
+                            >
                                 <span className="group-hover:-translate-x-2 transition-transform duration-300 inline-block">Home</span>
                             </a>
-                            <a href="#work" className="block hover:text-white transition-colors duration-300 group">
+                            <a
+                                href="#work"
+                                onClick={(e) => handleQuickLinkClick(e, '#work')}
+                                className="block hover:text-white transition-colors duration-300 group cursor-pointer"
+                            >
                                 <span className="group-hover:-translate-x-2 transition-transform duration-300 inline-block">Projects</span>
                             </a>
-                            <a href="#experience" className="block hover:text-white transition-colors duration-300 group">
+                            <a
+                                href="#experience"
+                                onClick={(e) => handleQuickLinkClick(e, '#experience')}
+                                className="block hover:text-white transition-colors duration-300 group cursor-pointer"
+                            >
                                 <span className="group-hover:-translate-x-2 transition-transform duration-300 inline-block">Experience</span>
                             </a>
-                            <a href="#contact" className="block hover:text-white transition-colors duration-300 group">
+                            <a
+                                href="#contact"
+                                onClick={(e) => handleQuickLinkClick(e, '#contact')}
+                                className="block hover:text-white transition-colors duration-300 group cursor-pointer"
+                            >
                                 <span className="group-hover:-translate-x-2 transition-transform duration-300 inline-block">Contact</span>
                             </a>
                         </nav>

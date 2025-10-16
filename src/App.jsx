@@ -17,7 +17,7 @@ const Home = () => (
     <ShowcaseSection />
 
     {/* <LogoShowcase /> */}
-    <FeatureCards />
+    {/* <FeatureCards /> */}
     <Experience />
     <TechStack />
     <Contact />

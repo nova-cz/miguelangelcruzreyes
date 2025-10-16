@@ -3,30 +3,52 @@ import { Link, useLocation } from "react-router-dom";
 import { navLinks } from "../constants";
 
 const NavBar = () => {
-  // track if the user has scrolled down the page
   const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
-    // create an event listener for when the user scrolls
     const handleScroll = () => {
-      // check if the user has scrolled down at least 10px
-      // if so, set the state to true
-      const isScrolled = window.scrollY > 10;
-      setScrolled(isScrolled);
+      const currentScrollY = window.scrollY;
+
+      // Mostrar navbar si estamos en la parte superior (menos de 100px)
+      if (currentScrollY < 100) {
+        setVisible(true);
+        setScrolled(false);
+      } else {
+        // Si scrolleamos hacia arriba, mostrar navbar
+        if (currentScrollY < lastScrollY) {
+          setVisible(true);
+        }
+        // Si scrolleamos hacia abajo, ocultar navbar
+        else if (currentScrollY > lastScrollY) {
+          setVisible(false);
+        }
+        
+        // Cambiar estado de "scrolled" para estilos
+        setScrolled(currentScrollY > 10);
+      }
+
+      setLastScrollY(currentScrollY);
     };
 
-    // add the event listener to the window
-    window.addEventListener('scroll', handleScroll);
-
-    // cleanup the event listener when the component is unmounted
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   const location = useLocation();
   const isHomePage = location.pathname === '/';
 
   return (
-    <header className={`navbar ${scrolled ? "scrolled" : "not-scrolled"}`}>
+    <header 
+      className={`navbar ${scrolled ? "scrolled" : "not-scrolled"} ${
+        visible ? "visible" : "hidden"
+      }`}
+      style={{
+        transform: visible ? 'translateY(0)' : 'translateY(-100%)',
+        transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+      }}
+    >
       <div className="inner">
         <Link to="/" className="logo">
           Miguel CR
@@ -35,7 +57,6 @@ const NavBar = () => {
         <nav className="desktop">
           <ul>
             {navLinks.map(({ link, name }) => {
-              // Si estamos en la página de inicio, usamos enlaces de ancla
               if (isHomePage) {
                 if (name === 'About Me') {
                   return (
@@ -61,7 +82,6 @@ const NavBar = () => {
                   );
                 }
               } else {
-                // Si estamos en otra página, usamos Link para navegar a la página de inicio con el hash
                 if (link.startsWith('#')) {
                   return (
                     <li key={name} className="group">

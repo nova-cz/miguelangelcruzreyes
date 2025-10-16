@@ -3,7 +3,7 @@ import { useRef, useEffect } from "react";
 const expCards = [
   {
     title: "Founder and Mentor – Legion Kids Initiative",
-    date: "April 2024",
+    date: "April 2024 - June 2024",
     company: "Puebla, Mexico",
     review:
       "Founded and led Legion Kids to support children struggling with post-pandemic learning gaps, fostering curiosity and academic confidence through interactive sessions.",

@@ -19,6 +19,7 @@
     "@types/three": "^0.174.0",
     "framer-motion": "^12.23.22",
     "gsap": "^3.12.7",
+    "lucide-react": "^0.545.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-helmet": "^6.1.0",

@@ -90,17 +90,19 @@ const Experience = () => {
       <div className="container mx-auto px-4 max-w-6xl">
         {/* Header */}
         <div className="mb-20">
-          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-white/5 border border-white/10">
-            <span className="text-lg">💼</span>
-            <span className="text-sm text-gray-400">My Career Overview</span>
+          <div className="flex justify-center">
+            <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-white/5 border border-white/10">
+              <span className="text-lg">💼</span>
+              <span className="text-sm text-gray-400">My Career Overview</span>
+            </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+
+          <h1 className="text-center text-4xl md:text-5xl font-bold text-white mb-4">
             Professional Work
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+            <span className="block text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
               Experience
             </span>
           </h1>
-          <div className="w-12 h-1 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full" />
         </div>
 
         {/* Cards */}

@@ -100,7 +100,7 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
           {/* Header Image with overlay */}
           <div className="mb-12 rounded-2xl overflow-hidden h-64 md:h-96 relative group">
             <img
-              src={project.image}
+              src={project.img} // <-- CAMBIO 1
               alt={project.title}
               className="w-full h-full object-cover"
             />
@@ -337,7 +337,7 @@ const AppShowcase = () => {
                 </div>
                 <div className="md:w-1/2 overflow-hidden rounded-2xl">
                   <img
-                    src={projects[0].image}
+                    src={projects[0].img} // <-- CAMBIO 2
                     alt={projects[0].title}
                     className="w-full h-full object-cover transition-transform duration-700"
                     style={{
@@ -371,7 +371,7 @@ const AppShowcase = () => {
                   backgroundImage: `linear-gradient(135deg, ${project.bgColor}80 0%, ${project.accentColor}20 100%)`
                 }}>
                   <img
-                    src={project.image}
+                    src={project.img} // <-- CAMBIO 3
                     alt={project.title}
                     className="w-full h-full object-cover transition-transform duration-700"
                     style={{

@@ -108,7 +108,7 @@ const Footer = () => {
                 {/* Main Content */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
                     {/* Left: Name & Description */}
-                    <div className="flex flex-col justify-center space-y-4 animate-slideUpIn">
+                    <div className="flex flex-col justify-center space-y-4 animate-slideUpIn text-left">
                         <h3 className="text-3xl md:text-4xl font-bold text-white">
                             Miguel Angel
                         </h3>
@@ -120,27 +120,8 @@ const Footer = () => {
                         </p>
                     </div>
 
-                    {/* Center: Quick Links */}
-                    <div className="flex flex-col justify-center space-y-4 animate-slideUpIn" style={{ animationDelay: "0.1s" }}>
-                        <h4 className="text-lg font-semibold text-white mb-2">Quick Links</h4>
-                        <nav className="space-y-3 text-gray-400">
-                            <a href="#hero" className="block hover:text-white transition-colors duration-300 group">
-                                <span className="group-hover:translate-x-2 transition-transform duration-300 inline-block">Home</span>
-                            </a>
-                            <a href="#work" className="block hover:text-white transition-colors duration-300 group">
-                                <span className="group-hover:translate-x-2 transition-transform duration-300 inline-block">Projects</span>
-                            </a>
-                            <a href="#experience" className="block hover:text-white transition-colors duration-300 group">
-                                <span className="group-hover:translate-x-2 transition-transform duration-300 inline-block">Experience</span>
-                            </a>
-                            <a href="#contact" className="block hover:text-white transition-colors duration-300 group">
-                                <span className="group-hover:translate-x-2 transition-transform duration-300 inline-block">Contact</span>
-                            </a>
-                        </nav>
-                    </div>
-
-                    {/* Right: Social Links */}
-                    <div className="flex flex-col justify-center space-y-4 animate-slideUpIn" style={{ animationDelay: "0.2s" }}>
+                    {/* Center: Social Links */}
+                    <div className="flex flex-col items-center justify-center space-y-4 animate-slideUpIn" style={{ animationDelay: "0.2s" }}>
                         <h4 className="text-lg font-semibold text-white mb-2">Connect</h4>
                         <div className="flex gap-4">
                             {socialLinks.map((social, index) => {
@@ -162,7 +143,27 @@ const Footer = () => {
                             })}
                         </div>
                     </div>
+
+                    {/* Right: Quick Links */}
+                    <div className="flex flex-col justify-center items-end text-right space-y-4 animate-slideUpIn" style={{ animationDelay: "0.1s" }}>
+                        <h4 className="text-lg font-semibold text-white mb-2">Quick Links</h4>
+                        <nav className="space-y-3 text-gray-400">
+                            <a href="#hero" className="block hover:text-white transition-colors duration-300 group">
+                                <span className="group-hover:-translate-x-2 transition-transform duration-300 inline-block">Home</span>
+                            </a>
+                            <a href="#work" className="block hover:text-white transition-colors duration-300 group">
+                                <span className="group-hover:-translate-x-2 transition-transform duration-300 inline-block">Projects</span>
+                            </a>
+                            <a href="#experience" className="block hover:text-white transition-colors duration-300 group">
+                                <span className="group-hover:-translate-x-2 transition-transform duration-300 inline-block">Experience</span>
+                            </a>
+                            <a href="#contact" className="block hover:text-white transition-colors duration-300 group">
+                                <span className="group-hover:-translate-x-2 transition-transform duration-300 inline-block">Contact</span>
+                            </a>
+                        </nav>
+                    </div>
                 </div>
+
 
                 {/* Divider */}
                 <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-8" />

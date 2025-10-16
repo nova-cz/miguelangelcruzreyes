@@ -1,149 +1,203 @@
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef, useEffect } from "react";
 
-import { expCards } from "../constants";
-import TitleHeader from "../components/TitleHeader";
-import GlowCard from "../components/GlowCard";
-
-gsap.registerPlugin(ScrollTrigger);
+const expCards = [
+  {
+    title: "Founder and Mentor – Legion Kids Initiative",
+    date: "April 2024",
+    company: "Puebla, Mexico",
+    review:
+      "Founded and led Legion Kids to support children struggling with post-pandemic learning gaps, fostering curiosity and academic confidence through interactive sessions.",
+    responsibilities: [
+      "Founded and led Legion Kids to support children with post-pandemic learning gaps",
+      "Taught math and basic English to 22 children aged 9 to 11",
+    ],
+    imgPath: "/images/experiencia/legionkids.jpg",
+    link: "https://drive.google.com/drive/u/1/folders/1cITTvs7rIWoxBcYISP4f54v562kbmNpg",
+  },
+  {
+    title: "Mentor of a Robotics Team – FTC AZTROID (FIRST Tech Challenge)",
+    date: "June 2022 - December 2024",
+    company: "ROBOTICS FTC – Puebla, Mexico",
+    review:
+      "Guided high school students in robotics, teaching 3D modeling with Onshape and SolidWorks, electronics, and programming in block-based languages and Java. Enhanced students’ problem-solving and teamwork skills through competition mentoring at the state level.",
+    responsibilities: [
+      "Instructed students in 3D modeling, electronics, and programming (Java & block-based)",
+      "Led competitive robotics training and team management",
+      "Enhanced students’ technical and problem-solving abilities through mentorship",
+    ],
+    imgPath: "/images/experiencia/mentor.jpg",
+    link: "https://drive.google.com/drive/u/1/folders/1cITTvs7rIWoxBcYISP4f54v562kbmNpg",
+  },
+];
 
 const Experience = () => {
-  useGSAP(() => {
-    // Loop through each timeline card and animate them in
-    // as the user scrolls to each card
-    gsap.utils.toArray(".timeline-card").forEach((card) => {
-      // Animate the card coming in from the left
-      // and fade in
-      gsap.from(card, {
-        // Move the card in from the left
-        xPercent: -100,
-        // Make the card invisible at the start
-        opacity: 0,
-        // Set the origin of the animation to the left side of the card
-        transformOrigin: "left left",
-        // Animate over 1 second
-        duration: 1,
-        // Use a power2 ease-in-out curve
-        ease: "power2.inOut",
-        // Trigger the animation when the card is 80% of the way down the screen
-        scrollTrigger: {
-          // The card is the trigger element
-          trigger: card,
-          // Trigger the animation when the card is 80% down the screen
-          start: "top 80%",
-        },
+  const cardsRef = useRef([]);
+  const imageRef = useRef([]);
+
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px",
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          const card = entry.target;
+          card.style.animation = `slideUp 0.7s ease-out ${index * 0.15}s forwards`;
+          observer.unobserve(card);
+        }
       });
+    }, observerOptions);
+
+    cardsRef.current.forEach((card) => {
+      if (card) observer.observe(card);
     });
 
-    // Animate the timeline height as the user scrolls
-    // from the top of the timeline to 70% down the screen
-    // The timeline height should scale down from 1 to 0
-    // as the user scrolls up the screen
-    gsap.to(".timeline", {
-      // Set the origin of the animation to the bottom of the timeline
-      transformOrigin: "bottom bottom",
-      // Animate the timeline height over 1 second
-      ease: "power1.inOut",
-      // Trigger the animation when the timeline is at the top of the screen
-      // and end it when the timeline is at 70% down the screen
-      scrollTrigger: {
-        trigger: ".timeline",
-        start: "top center",
-        end: "70% center",
-        // Update the animation as the user scrolls
-        onUpdate: (self) => {
-          // Scale the timeline height as the user scrolls
-          // from 1 to 0 as the user scrolls up the screen
-          gsap.to(".timeline", {
-            scaleY: 1 - self.progress,
-          });
-        },
-      },
-    });
-
-    // Loop through each expText element and animate them in
-    // as the user scrolls to each text element
-    gsap.utils.toArray(".expText").forEach((text) => {
-      // Animate the text opacity from 0 to 1
-      // and move it from the left to its final position
-      // over 1 second with a power2 ease-in-out curve
-      gsap.from(text, {
-        // Set the opacity of the text to 0
-        opacity: 0,
-        // Move the text from the left to its final position
-        // (xPercent: 0 means the text is at its final position)
-        xPercent: 0,
-        // Animate over 1 second
-        duration: 1,
-        // Use a power2 ease-in-out curve
-        ease: "power2.inOut",
-        // Trigger the animation when the text is 60% down the screen
-        scrollTrigger: {
-          // The text is the trigger element
-          trigger: text,
-          // Trigger the animation when the text is 60% down the screen
-          start: "top 60%",
-        },
-      });
-    }, "<"); // position parameter - insert at the start of the animation
+    return () => observer.disconnect();
   }, []);
 
+  const handleCardHover = (index, isEntering) => {
+    const card = cardsRef.current[index];
+    const image = imageRef.current[index];
+
+    if (isEntering) {
+      card.style.transform = "translateY(-8px)";
+      card.style.boxShadow = "0 20px 40px rgba(59, 130, 246, 0.2)";
+      if (image) image.style.transform = "scale(1.05)";
+    } else {
+      card.style.transform = "translateY(0)";
+      card.style.boxShadow = "0 10px 25px rgba(0, 0, 0, 0.3)";
+      if (image) image.style.transform = "scale(1)";
+    }
+  };
+
   return (
-    <section
-      id="experience"
-      className="flex-center md:mt-40 mt-20 section-padding xl:px-0"
-    >
-      <div className="w-full h-full md:px-20 px-5">
-        <TitleHeader
-          title="Professional Work Experience"
-          sub="💼 My Career Overview"
-        />
-        <div className="mt-32 relative">
-          <div className="relative z-50 xl:space-y-32 space-y-10">
-            {expCards.map((card) => (
-              <div key={card.title} className="exp-card-wrapper">
-                <div className="xl:w-2/6">
-                  <GlowCard card={card}>
+    <section id="experience" className="py-24 bg-black">
+      <style>{`
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(40px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
+
+      <div className="container mx-auto px-4 max-w-6xl">
+        {/* Header */}
+        <div className="mb-20">
+          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-white/5 border border-white/10">
+            <span className="text-lg">💼</span>
+            <span className="text-sm text-gray-400">My Career Overview</span>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Professional Work
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+              Experience
+            </span>
+          </h1>
+          <div className="w-12 h-1 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full" />
+        </div>
+
+        {/* Cards */}
+        <div className="space-y-6">
+          {expCards.map((card, index) => (
+            <div
+              key={card.title}
+              ref={(el) => (cardsRef.current[index] = el)}
+              onMouseEnter={() => handleCardHover(index, true)}
+              onMouseLeave={() => handleCardHover(index, false)}
+              className="group relative overflow-hidden rounded-2xl backdrop-blur-sm transition-all duration-400 cursor-pointer"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(10,10,10,0.8) 0%, rgba(20,20,30,0.8) 100%)",
+                border: "1px solid rgba(100,150,255,0.1)",
+                boxShadow: "0 10px 25px rgba(0, 0, 0, 0.3)",
+              }}
+            >
+              {/* Animated gradient background */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5" />
+              </div>
+
+              {/* "Ver" Button */}
+              {card.link && (
+                <a
+                  href={card.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute top-4 right-4 text-xs px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30 hover:bg-blue-500/30 transition-all"
+                >
+                  Ver
+                </a>
+              )}
+
+              <div className="relative p-8 md:p-10">
+                <div className="flex flex-col md:flex-row gap-8">
+                  {/* Image */}
+                  <div className="md:w-1/3 flex-shrink-0">
+                    <div className="relative h-40 md:h-52 overflow-hidden rounded-xl">
+                      <img
+                        ref={(el) => (imageRef.current[index] = el)}
+                        src={card.imgPath}
+                        alt={card.title}
+                        className="w-full h-full object-cover transition-transform duration-400"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="md:w-2/3">
+                    <div className="mb-4">
+                      <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">
+                        {card.company}
+                      </span>
+                      <h2 className="text-2xl md:text-3xl font-bold text-white mt-2 group-hover:text-blue-300 transition-colors">
+                        {card.title}
+                      </h2>
+                      <p className="text-sm text-gray-400 mt-2">{card.date}</p>
+                    </div>
+
+                    <p className="text-gray-300 leading-relaxed mb-6">
+                      {card.review}
+                    </p>
+
+                    {/* Responsibilities */}
                     <div>
-                      <img src={card.imgPath} alt="exp-img" />
-                    </div>
-                  </GlowCard>
-                </div>
-                <div className="xl:w-4/6">
-                  <div className="flex items-start">
-                    <div className="timeline-wrapper">
-                      <div className="timeline" />
-                      <div className="gradient-line w-1 h-full" />
-                    </div>
-                    <div className="expText flex xl:gap-20 md:gap-10 gap-5 relative z-20">
-                      <div className="timeline-logo">
-                        <img src={card.logoPath} alt="logo" />
-                      </div>
-                      <div>
-                        <h1 className="font-semibold text-3xl">{card.title}</h1>
-                        <p className="my-5 text-white-50">
-                          🗓️&nbsp;{card.date}
-                        </p>
-                        <p className="text-[#839CB5] italic">
-                          Responsibilities
-                        </p>
-                        <ul className="list-disc ms-5 mt-5 flex flex-col gap-5 text-white-50">
-                          {card.responsibilities.map(
-                            (responsibility, index) => (
-                              <li key={index} className="text-lg">
-                                {responsibility}
-                              </li>
-                            )
-                          )}
-                        </ul>
-                      </div>
+                      <h3 className="text-sm font-semibold text-gray-200 uppercase tracking-wider mb-4">
+                        Key Responsibilities
+                      </h3>
+                      <ul className="space-y-3">
+                        {card.responsibilities.map((item, i) => (
+                          <li key={i} className="flex items-start gap-3">
+                            <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 mt-2 flex-shrink-0" />
+                            <span className="text-gray-300 text-sm leading-relaxed">
+                              {item}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+
+              {/* Border gradient */}
+              <div
+                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(168,85,247,0.1) 100%)",
+                  border: "1px solid rgba(100,150,255,0.2)",
+                }}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </section>

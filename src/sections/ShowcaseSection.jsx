@@ -298,7 +298,7 @@ const AppShowcase = () => {
               <div className="p-10 md:p-16 flex flex-col md:flex-row gap-12 h-full">
                 <div className="md:w-1/2 flex flex-col justify-between">
                   <div>
-                    <h2 className="text-4xl md:text-5xl font-bold mb-6 transition-colors duration-300 text-white">
+                    <h2 className="text-4xl md:text-5xl font-bold mb-6 transition-colors duration-300 text-black">
                       {projects[0].title}
                     </h2>
                     <p className="text-gray-700 text-lg leading-relaxed mb-6">
@@ -384,9 +384,13 @@ const AppShowcase = () => {
                 {/* Content */}
                 <div className="p-8 flex flex-col flex-1 justify-between">
                   <div>
-                    <h3 className="text-3xl font-bold mb-3 transition-colors duration-300 text-white">
+                    <h3
+                      className={`text-3xl font-bold mb-3 transition-colors duration-300 ${selectedProject?.id === project.id ? "text-white" : "text-black"
+                        }`}
+                    >
                       {project.title}
                     </h3>
+
                     <p className="text-gray-700 text-sm mb-6 leading-relaxed">
                       {project.shortDesc}
                     </p>

@@ -15,7 +15,6 @@ const Home = () => (
   <Fragment>
     <Hero />
     <ShowcaseSection />
-
     {/* <LogoShowcase /> */}
     {/* <FeatureCards /> */}
     <Experience />

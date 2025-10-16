@@ -115,7 +115,8 @@ const ChatBot = () => {
         "Tell me about your projects",
         "How can I contact you?",
         "What's your education?",
-        "What awards have you won?"
+        "What awards have you won?",
+        "What languages do you speak?"
     ];
 
     const generateResponse = (userMessage) => {
@@ -155,7 +156,11 @@ const ChatBot = () => {
             ).join("\n\n")}`;
         }
 
-        return `I'm not sure I understand. I can help you with:\n• My professional experience\n• Technologies I use\n• My projects\n• My education\n• How to contact me\n• Awards and achievements`;
+        if (msg.includes("language") || msg.includes("speak") || msg.includes("hablas")) {
+            return `🌍 Languages I speak:\n\n${resumeData.languages.map(lang => `• ${lang}`).join("\n")}`;
+        }
+
+        return `I'm not sure I understand. I can help you with:\n• My professional experience\n• Technologies I use\n• My projects\n• My education\n• How to contact me\n• Awards and achievements\n• Languages I speak`;
     };
 
     const handleSendMessage = (text = input) => {

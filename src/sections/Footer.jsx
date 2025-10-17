@@ -1,12 +1,12 @@
 import { Github, Linkedin, Instagram, ArrowUp } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom"; // ← Agregar esto
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Footer = () => {
     const [showScrollTop, setShowScrollTop] = useState(false);
-    const navigate = useNavigate(); // ← Agregar esto
-    const location = useLocation(); // ← Agregar esto
-    const isHomePage = location.pathname === '/'; // ← Agregar esto
+    const navigate = useNavigate();
+    const location = useLocation();
+    const isHomePage = location.pathname === '/';
 
     useEffect(() => {
         const handleScroll = () => {
@@ -17,7 +17,6 @@ const Footer = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // ← Agregar esta función
     const handleQuickLinkClick = (e, href) => {
         e.preventDefault();
 
@@ -133,8 +132,8 @@ const Footer = () => {
             <div className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-20 relative z-10">
                 {/* Main Content */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-                    {/* Left: Name & Description */}
-                    <div className="flex flex-col justify-center space-y-4 animate-slideUpIn text-left">
+                    {/* Left/Center Mobile: Name & Description */}
+                    <div className="flex flex-col justify-center items-center md:items-start space-y-4 animate-slideUpIn text-center md:text-left md:col-span-1">
                         <h3 className="text-3xl md:text-4xl font-bold text-white">
                             Miguel Angel
                         </h3>
@@ -147,7 +146,7 @@ const Footer = () => {
                     </div>
 
                     {/* Center: Social Links */}
-                    <div className="flex flex-col items-center justify-center space-y-4 animate-slideUpIn" style={{ animationDelay: "0.2s" }}>
+                    <div className="flex flex-col items-center justify-center space-y-4 animate-slideUpIn md:col-span-1" style={{ animationDelay: "0.2s" }}>
                         <h4 className="text-lg font-semibold text-white mb-2">Connect</h4>
                         <div className="flex gap-4">
                             {socialLinks.map((social, index) => {
@@ -170,8 +169,8 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    {/* Right: Quick Links */}
-                    <div className="flex flex-col justify-center items-end text-right space-y-4 animate-slideUpIn" style={{ animationDelay: "0.1s" }}>
+                    {/* Right: Quick Links - Hidden on Mobile */}
+                    <div className="hidden md:flex flex-col justify-center items-end text-right space-y-4 animate-slideUpIn md:col-span-1" style={{ animationDelay: "0.1s" }}>
                         <h4 className="text-lg font-semibold text-white mb-2">Quick Links</h4>
                         <nav className="space-y-3 text-gray-400">
                             <a
@@ -206,13 +205,12 @@ const Footer = () => {
                     </div>
                 </div>
 
-
                 {/* Divider */}
                 <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-8" />
 
                 {/* Bottom: Copyright & Scroll to Top */}
                 <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-                    <p className="text-gray-500 text-sm">
+                    <p className="text-gray-500 text-sm text-center md:text-left">
                         © 2025 Miguel Angel Cruz Reyes. All rights reserved.
                     </p>
 

@@ -1,4 +1,5 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const expCards = [
   {
@@ -13,26 +14,185 @@ const expCards = [
     ],
     imgPath: "/images/experiencia/legionkids.jpg",
     link: "https://drive.google.com/drive/u/1/folders/1cITTvs7rIWoxBcYISP4f54v562kbmNpg",
+    galleryFolder: "legionkids"
   },
   {
     title: "Mentor of a Robotics Team – FTC AZTROID (FIRST Tech Challenge)",
     date: "June 2022 - December 2024",
     company: "ROBOTICS FTC – Puebla, Mexico",
     review:
-      "Guided high school students in robotics, teaching 3D modeling with Onshape and SolidWorks, electronics, and programming in block-based languages and Java. Enhanced students’ problem-solving and teamwork skills through competition mentoring at the state level.",
+      "Guided high school students in robotics, teaching 3D modeling with Onshape and SolidWorks, electronics, and programming in block-based languages and Java. Enhanced students' problem-solving and teamwork skills through competition mentoring at the state level.",
     responsibilities: [
       "Instructed students in 3D modeling, electronics, and programming (Java & block-based)",
       "Led competitive robotics training and team management",
-      "Enhanced students’ technical and problem-solving abilities through mentorship",
+      "Enhanced students' technical and problem-solving abilities through mentorship",
     ],
     imgPath: "/images/experiencia/mentor.jpg",
     link: "https://drive.google.com/drive/u/1/folders/1cITTvs7rIWoxBcYISP4f54v562kbmNpg",
+    galleryFolder: "aztroid"
   },
 ];
+
+const GalleryModal = ({ isOpen, onClose, title, galleryFolder, images }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft") handlePrev();
+      if (e.key === "ArrowRight") handleNext();
+    };
+
+    if (isOpen) {
+      document.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen, currentIndex]);
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      {/* Fondo nubloso */}
+      <div
+        className="absolute inset-0 bg-black/60 backdrop-blur-md"
+        onClick={onClose}
+      />
+
+      {/* Modal */}
+      <div className="relative z-10 w-full max-w-4xl mx-auto px-4">
+        <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-2xl overflow-hidden border border-blue-500/20 shadow-2xl">
+          {/* Header */}
+          <div className="flex items-center justify-between p-6 border-b border-blue-500/10">
+            <h2 className="text-xl md:text-2xl font-bold text-white">
+              {title}
+            </h2>
+            <button
+              onClick={onClose}
+              className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+            >
+              <X className="w-6 h-6 text-gray-300" />
+            </button>
+          </div>
+
+          {/* Gallery */}
+          <div className="relative bg-black/40">
+            {/* Imagen principal */}
+            <div className="relative aspect-video overflow-hidden">
+              <img
+                src={images[currentIndex]}
+                alt={`Gallery image ${currentIndex + 1}`}
+                className="w-full h-full object-cover"
+              />
+
+              {/* Contador */}
+              <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur px-3 py-1 rounded-full text-sm text-gray-200">
+                {currentIndex + 1} / {images.length}
+              </div>
+            </div>
+
+            {/* Botones de navegación */}
+            {images.length > 1 && (
+              <>
+                <button
+                  onClick={handlePrev}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-blue-500/30 hover:bg-blue-500/50 rounded-full transition-colors backdrop-blur"
+                >
+                  <ChevronLeft className="w-6 h-6 text-white" />
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-blue-500/30 hover:bg-blue-500/50 rounded-full transition-colors backdrop-blur"
+                >
+                  <ChevronRight className="w-6 h-6 text-white" />
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* Thumbnails */}
+          {images.length > 1 && (
+            <div className="flex gap-2 p-4 overflow-x-auto bg-black/30 border-t border-blue-500/10">
+              {images.map((img, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentIndex(idx)}
+                  className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden transition-all ${
+                    idx === currentIndex
+                      ? "ring-2 ring-blue-400 scale-105"
+                      : "opacity-60 hover:opacity-100"
+                  }`}
+                >
+                  <img
+                    src={img}
+                    alt={`Thumbnail ${idx + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Experience = () => {
   const cardsRef = useRef([]);
   const imageRef = useRef([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [galleryImages, setGalleryImages] = useState([]);
+
+  // Simular imágenes de las carpetas
+  const folderImages = {
+    aztroid: [
+      // "/images/aztroid/1.JPG",
+      "/images/aztroid/2.JPG",
+      "/images/aztroid/3.jpg",
+      // "/images/aztroid/4.HEIC",
+      "/images/aztroid/5.JPG",
+      "/images/aztroid/6.PNG",
+    ],
+    legionkids: [
+      "/images/legionkids/1.JPG",
+      "/images/legionkids/2.JPG",
+      // "/images/legionkids/3.MP4",
+      "/images/legionkids/4.JPG",
+      "/images/legionkids/5.JPG",
+      "/images/legionkids/6.JPG",
+      "/images/legionkids/7.JPG",
+      "/images/legionkids/8.JPG",
+      "/images/legionkids/9.JPG",
+      // "/images/legionkids/10.MP4",
+      "/images/legionkids/11.JPG",
+      "/images/legionkids/12.JPG",
+      "/images/legionkids/13.JPG",
+      "/images/legionkids/14.JPG",
+      "/images/legionkids/15.JPG",
+      "/images/legionkids/16.JPG",
+    ],
+  };
+
+  const openGallery = (card) => {
+    setSelectedProject(card.title);
+    setGalleryImages(folderImages[card.galleryFolder] || []);
+    setModalOpen(true);
+  };
 
   useEffect(() => {
     const observerOptions = {
@@ -127,16 +287,20 @@ const Experience = () => {
               </div>
 
               {/* "Ver" Button */}
-              {card.link && (
-                <a
-                  href={card.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="absolute top-4 right-4 text-xs px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30 hover:bg-blue-500/30 transition-all"
-                >
-                  Ver
-                </a>
-              )}
+              <button
+                onClick={() => openGallery(card)}
+                className="absolute top-4 right-4 px-6 py-2 rounded-full font-bold text-sm z-10 group/btn overflow-hidden transition-all hover:scale-110 active:scale-95"
+                style={{
+                  background: "linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)",
+                  boxShadow: "0 0 20px rgba(59, 130, 246, 0.6), 0 0 40px rgba(139, 92, 246, 0.3)",
+                }}
+              >
+                <span className="relative z-10 text-white flex items-center gap-2">
+                  <span>📸</span>
+                  Ver Galería
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
+              </button>
 
               <div className="relative p-8 md:p-10">
                 <div className="flex flex-col md:flex-row gap-8">
@@ -202,6 +366,15 @@ const Experience = () => {
           ))}
         </div>
       </div>
+
+      {/* Gallery Modal */}
+      <GalleryModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title={selectedProject}
+        galleryFolder={selectedProject}
+        images={galleryImages}
+      />
     </section>
   );
 };

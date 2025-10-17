@@ -1,12 +1,15 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-
+import { useRef, useState, useEffect } from "react";
 import AnimatedCounter from "../components/AnimatedCounter";
 import Button from "../components/Button";
 import { words } from "../constants";
 import HeroExperience from "../components/models/hero_models/HeroExperience";
 
 const Hero = () => {
+  const modelContainerRef = useRef(null);
+  const [isPressed, setIsPressed] = useState(false);
+
   useGSAP(() => {
     gsap.fromTo(
       ".hero-text h1",
@@ -14,6 +17,46 @@ const Hero = () => {
       { y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power2.inOut" }
     );
   });
+
+  // Detectar cuando el usuario presiona fuerte (mouse down o touch)
+  useEffect(() => {
+    const container = modelContainerRef.current;
+    if (!container) return;
+
+    const handlePointerDown = () => {
+      setIsPressed(true);
+    };
+
+    const handlePointerUp = () => {
+      setIsPressed(false);
+    };
+
+    const handlePointerCancel = () => {
+      setIsPressed(false);
+    };
+
+    // Solo permitir movimiento del modelo cuando está presionado
+    const handlePointerMove = (e) => {
+      if (!isPressed) {
+        // Si no está presionado, no hacer nada (permitir scroll)
+        return;
+      }
+      // Si está presionado, el modelo 3D maneja el movimiento
+      e.preventDefault();
+    };
+
+    container.addEventListener("pointerdown", handlePointerDown);
+    container.addEventListener("pointerup", handlePointerUp);
+    container.addEventListener("pointercancel", handlePointerCancel);
+    container.addEventListener("pointermove", handlePointerMove, { passive: false });
+
+    return () => {
+      container.removeEventListener("pointerdown", handlePointerDown);
+      container.removeEventListener("pointerup", handlePointerUp);
+      container.removeEventListener("pointercancel", handlePointerCancel);
+      container.removeEventListener("pointermove", handlePointerMove);
+    };
+  }, [isPressed]);
 
   return (
     <section id="hero" className="relative overflow-hidden">
@@ -23,7 +66,7 @@ const Hero = () => {
 
       <div className="hero-layout">
         {/* LEFT: Hero Content */}
-        <header className="flex flex-col justify-center md:w-full w-screen md:px-20 px-5">
+        <header className="flex flex-col justify-center md:w-full w-screen md:px-20 px-5 relative z-20 pointer-events-auto">
           <div className="flex flex-col gap-7">
             <div className="hero-text">
               <h1>
@@ -56,15 +99,22 @@ const Hero = () => {
 
             <Button
               text="See My Work"
-              className="md:w-80 md:h-16 w-60 h-12"
+              className="md:w-80 md:h-16 w-60 h-12 relative z-10"
               id="counter"
             />
           </div>
         </header>
 
         {/* RIGHT: 3D Model or Visual */}
-        <figure>
-          <div className="hero-3d-layout">
+        <figure
+          ref={modelContainerRef}
+          className={`${isPressed ? "cursor-grabbing" : "cursor-grab"}`}
+          style={{
+            pointerEvents: isPressed ? "auto" : "none",
+            touchAction: isPressed ? "none" : "auto",
+          }}
+        >
+          <div className="hero-3d-layout pointer-events-auto">
             <HeroExperience />
           </div>
         </figure>

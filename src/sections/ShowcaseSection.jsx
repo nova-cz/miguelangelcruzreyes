@@ -7,7 +7,7 @@ const projects = [
     title: "TlamatIA",
     shortDesc: "Plataforma de IA para planificación y bienestar de maestros rurales multigrado.",
     fullDesc: "Plataforma integral de inteligencia artificial diseñada específicamente para maestros rurales multigrado. Genera planes de clase personalizados, ofrece traducción a lenguas originarias y funciona completamente offline para adaptarse a la realidad de las comunidades rurales.",
-    img: "/public/images/Tlamantla (1).png",
+    img: "/public/images/Tlamantla.png",
     bgColor: "#F9F9F7",
     accentColor: "#3E7B6C",
     technologies: ["React", "TypeScript", "Tailwind CSS", "Gemini", "LocalStorage (Offline)"],

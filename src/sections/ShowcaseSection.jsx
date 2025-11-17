@@ -4,6 +4,25 @@ import { X, Github, ExternalLink } from "lucide-react";
 const projects = [
   {
     id: 1,
+    title: "TlamatIA",
+    shortDesc: "Plataforma de IA para planificación y bienestar de maestros rurales multigrado.",
+    fullDesc: "Plataforma integral de inteligencia artificial diseñada específicamente para maestros rurales multigrado. Genera planes de clase personalizados, ofrece traducción a lenguas originarias y funciona completamente offline para adaptarse a la realidad de las comunidades rurales.",
+    img: "/public/images/Tlamantla (1).png",
+    bgColor: "#F9F9F7",
+    accentColor: "#3E7B6C",
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Gemini", "LocalStorage (Offline)"],
+    repo: "https://github.com/danielalira20/tlamatia-plans.git",
+    deploy: "https://tlamatia-plans-nuevo.vercel.app",
+    features: [
+      "Planeación Inteligente: Genera planes multigrado (1-6°) alineados a la SEP en < 30 seg",
+      "Puente Cultural: Traducción a lenguas originarias (Náhuatl) con un clic",
+      "Contextualización: Adapta actividades usando fotos del entorno del aula",
+      "Bienestar Docente: Módulo de pausas activas y registro emocional",
+      "100% Offline: Diseñado para la realidad rural, funciona sin conexión a internet"
+    ]
+  },
+  {
+    id: 2,
     title: "AI Resume Analyzer",
     shortDesc: "Smart resume analysis powered by AI technology",
     fullDesc: "An intelligent resume analyzer that uses AI to provide comprehensive feedback and improvements on your resume. Get instant insights on formatting, content optimization, and professional recommendations.",
@@ -16,7 +35,7 @@ const projects = [
     features: ["AI-powered analysis", "Real-time feedback", "Resume optimization tips", "Export functionality"]
   },
   {
-    id: 2,
+    id: 3,
     title: "YC Directory",
     shortDesc: "Discover and explore innovative startups",
     fullDesc: "A comprehensive startup directory showcasing Y Combinator companies. Browse through innovative startups, explore their details, and discover the next big thing in the tech industry.",
@@ -28,19 +47,7 @@ const projects = [
     deploy: "https://yc-directory-five-sigma.vercel.app",
     features: ["Startup database", "Advanced search", "Detailed company profiles", "Real-time updates"]
   },
-  {
-    id: 3,
-    title: "Movie Platform",
-    shortDesc: "Stream and discover your favorite movies",
-    fullDesc: "A modern movie streaming platform built with Appwrite backend. Browse thousands of movies, create personalized watchlists, and get recommendations based on your preferences.",
-    img: "/images/project4.png", 
-    bgColor: "#FFE7EB",
-    accentColor: "#EC4899",
-    technologies: ["React", "Appwrite", "MongoDB", "TailwindCSS", "JavaScript"],
-    repo: "https://github.com/nova-cz/movie-appwrite_project",
-    deploy: "https://movie-appwrite-project.vercel.app",
-    features: ["Movie streaming", "Watchlist management", "User recommendations", "Smooth playback"]
-  },
+    
 ];
 
 const ProjectModal = ({ project, isOpen, onClose }) => {

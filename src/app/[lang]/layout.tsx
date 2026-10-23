@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
   const { lang } = await params;
   if (!hasLang(lang)) return {};
   return {
-    metadataBase: new URL("https://miguelangelcruzreyes.vercel.app"),
+    metadataBase: new URL("https://miguelcruz.vercel.app"),
     title: tr(ui.meta.title, lang),
     description: tr(ui.meta.description, lang),
     alternates: { languages: { es: "/es", en: "/en" } },

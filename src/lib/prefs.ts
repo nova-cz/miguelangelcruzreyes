@@ -9,8 +9,3 @@ export function saveLang(lang: Lang) {
   }
   document.cookie = `lang=${lang}; path=/; max-age=31536000; samesite=lax`;
 }
-
-// Abre la app de correo con el mensaje redactado.
-export function openMailto(url: string) {
-  window.location.href = url;
-}

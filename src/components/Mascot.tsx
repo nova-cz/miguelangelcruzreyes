@@ -3,13 +3,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useAnimationControls } from "motion/react";
-import { Send, X } from "lucide-react";
-import { tr, type Lang } from "@/lib/i18n";
+import { ArrowUpRight, RotateCcw, X } from "lucide-react";
+import { tr, type L, type Lang } from "@/lib/i18n";
 import { ui } from "@/content/site";
+import { flow, rootId, type Opt } from "@/content/star-flow";
 
-type Msg = { role: "user" | "assistant"; content: string };
-
-const MAX_USER_MESSAGES = 10;
+// Cada paso es un nodo del árbol; "via" es la opción que el visitante eligió para llegar a él.
+type Step = { node: string; via?: L };
 const MASCOT_IMAGE = "/images/mascot/star.webp";
 
 function StarFace({ className = "" }: { className?: string }) {
@@ -19,11 +19,8 @@ function StarFace({ className = "" }: { className?: string }) {
 export default function Mascot({ lang }: { lang: Lang }) {
   const [open, setOpen] = useState(false);
   const [showBubble, setShowBubble] = useState(false);
-  const [messages, setMessages] = useState<Msg[]>([]);
-  const [draft, setDraft] = useState("");
-  const [busy, setBusy] = useState(false);
+  const [steps, setSteps] = useState<Step[]>([{ node: rootId }]);
   const listRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   // --- Animación de la estrella ---
   const body = useAnimationControls();
@@ -93,9 +90,6 @@ export default function Mascot({ lang }: { lang: Lang }) {
     return () => clearTimeout(timer);
   }, [jump]);
 
-  const userCount = messages.filter((m) => m.role === "user").length;
-  const limitReached = userCount >= MAX_USER_MESSAGES;
-
   // Globo "¿Te ayudo?" unos segundos después de cargar; la estrella salta al aparecer.
   useEffect(() => {
     const show = setTimeout(() => {
@@ -116,10 +110,10 @@ export default function Mascot({ lang }: { lang: Lang }) {
     return () => window.removeEventListener("star:open", onOpen);
   }, []);
 
-  // Atajo ⌘/Ctrl + Alt + / y Escape.
+  // Atajo ⌘/Ctrl + Alt + S y Escape.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.altKey && e.code === "Slash") {
+      if ((e.metaKey || e.ctrlKey) && e.altKey && e.code === "KeyS") {
         e.preventDefault();
         setOpen((v) => !v);
       } else if (e.key === "Escape") {
@@ -131,51 +125,22 @@ export default function Mascot({ lang }: { lang: Lang }) {
   }, []);
 
   useEffect(() => {
-    if (open) inputRef.current?.focus();
-  }, [open]);
-
-  useEffect(() => {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages, busy]);
+  }, [steps]);
 
-  const send = useCallback(
-    async (text: string) => {
-      const content = text.trim();
-      if (!content || busy || limitReached) return;
-      const next: Msg[] = [...messages, { role: "user", content }];
-      setMessages(next);
-      setDraft("");
-      setBusy(true);
-      const reply = (message: string) => {
-        setMessages((m) => [...m, { role: "assistant", content: message }]);
-        jump();
-      };
-      try {
-        const res = await fetch("/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ lang, messages: next }),
-        });
-        const data = (await res.json().catch(() => ({}))) as { reply?: string; error?: string };
-        if (res.ok && data.reply) {
-          reply(data.reply);
-        } else if (data.error === "not_configured") {
-          reply(tr(ui.chat.unavailable, lang));
-        } else if (data.error === "limit") {
-          reply(tr(ui.chat.limit, lang));
-        } else if (data.error === "busy") {
-          reply(tr(ui.chat.busy, lang));
-        } else {
-          reply(tr(ui.chat.error, lang));
-        }
-      } catch {
-        reply(tr(ui.chat.error, lang));
-      } finally {
-        setBusy(false);
-      }
+  const choose = useCallback(
+    (opt: Opt) => {
+      if (!opt.next) return;
+      setSteps((prev) => [...prev, { node: opt.next as string, via: opt.label }]);
+      jump();
     },
-    [busy, jump, lang, limitReached, messages],
+    [jump],
   );
+
+  const restart = () => setSteps([{ node: rootId }]);
+
+  const hrefFor = (opt: Opt) => (opt.href ? opt.href.replace("__LANG__", lang) : undefined);
+  const current = flow[steps[steps.length - 1].node];
 
   return (
     <>
@@ -208,72 +173,59 @@ export default function Mascot({ lang }: { lang: Lang }) {
             </header>
 
             <div ref={listRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-4 text-[15px] leading-[1.45]" aria-live="polite">
-              <p className="max-w-[88%] rounded-2xl rounded-tl-md px-3.5 py-2.5 text-muted" style={{ background: "var(--card)" }}>
-                {tr(ui.chat.greeting, lang)}
-              </p>
-              {messages.length === 0 && (
-                <div className="flex flex-wrap gap-2 pt-1">
-                  {ui.chat.suggestions[lang].map((q) => (
-                    <button
-                      key={q}
-                      type="button"
-                      onClick={() => send(q)}
-                      className="rounded-full border border-line px-3 py-1.5 text-left text-sm transition-[scale,background-color] duration-150 ease-out hover:bg-white/10 active:scale-95"
+              {steps.map((step, i) => (
+                <div key={i} className="space-y-3">
+                  {step.via && (
+                    <p
+                      className="ml-auto w-fit max-w-[88%] rounded-2xl rounded-tr-md px-3.5 py-2.5"
+                      style={{ background: "var(--nav-active)", color: "var(--nav-active-fg)" }}
                     >
-                      {q}
-                    </button>
-                  ))}
+                      {tr(step.via, lang)}
+                    </p>
+                  )}
+                  <p className="max-w-[88%] whitespace-pre-line rounded-2xl rounded-tl-md px-3.5 py-2.5 text-muted" style={{ background: "var(--card)" }}>
+                    {tr(flow[step.node].text, lang)}
+                  </p>
                 </div>
-              )}
-              {messages.map((m, i) => (
-                <p
-                  key={i}
-                  className={`max-w-[88%] whitespace-pre-wrap rounded-2xl px-3.5 py-2.5 ${
-                    m.role === "user" ? "ml-auto rounded-tr-md" : "rounded-tl-md text-muted"
-                  }`}
-                  style={
-                    m.role === "user"
-                      ? { background: "var(--nav-active)", color: "var(--nav-active-fg)" }
-                      : { background: "var(--card)" }
-                  }
-                >
-                  {m.content}
-                </p>
               ))}
-              {busy && (
-                <p className="w-fit rounded-2xl rounded-tl-md px-3.5 py-2.5 text-muted" style={{ background: "var(--card)" }}>
-                  {tr(ui.chat.thinking, lang)}
-                </p>
-              )}
             </div>
 
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                send(draft);
-              }}
-              className="flex items-center gap-2 border-t border-line p-3"
-            >
-              <input
-                ref={inputRef}
-                value={draft}
-                onChange={(e) => setDraft(e.target.value)}
-                maxLength={500}
-                disabled={limitReached}
-                placeholder={tr(limitReached ? ui.chat.limit : ui.chat.placeholder, lang)}
-                aria-label={tr(ui.chat.placeholder, lang)}
-                className="min-w-0 flex-1 rounded-full border border-line bg-transparent px-4 py-2.5 text-[15px] outline-none placeholder:text-muted focus:border-white/40"
-              />
-              <button
-                type="submit"
-                disabled={busy || limitReached || !draft.trim()}
-                aria-label={tr(ui.chat.send, lang)}
-                className="grid size-10 shrink-0 place-items-center rounded-full transition-[scale,opacity] duration-150 ease-out hover:scale-105 active:scale-95 disabled:opacity-40"
-                style={{ background: "var(--nav-active)", color: "var(--nav-active-fg)" }}
-              >
-                <Send size={16} aria-hidden />
-              </button>
-            </form>
+            <div className="border-t border-line p-3">
+              <p className="mb-2 px-1 text-xs text-muted">{tr(ui.chat.pick, lang)}</p>
+              <div className="flex max-h-[168px] flex-wrap gap-2 overflow-y-auto">
+                {current.options.map((opt) => {
+                  const href = hrefFor(opt);
+                  const cls =
+                    "flex items-center gap-1 rounded-full border border-line px-3 py-1.5 text-left text-sm transition-[scale,background-color] duration-150 ease-out hover:bg-white/10 active:scale-95";
+                  const label = tr(opt.label, lang);
+                  return href ? (
+                    <a
+                      key={label}
+                      href={href}
+                      {...(opt.external ? { target: "_blank", rel: "noopener" } : { onClick: () => setOpen(false) })}
+                      className={cls}
+                    >
+                      {label}
+                      <ArrowUpRight size={13} aria-hidden />
+                    </a>
+                  ) : (
+                    <button key={label} type="button" onClick={() => choose(opt)} className={cls}>
+                      {label}
+                    </button>
+                  );
+                })}
+                {steps.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={restart}
+                    className="flex items-center gap-1 rounded-full px-3 py-1.5 text-sm text-muted transition-[scale,background-color] duration-150 ease-out hover:bg-white/10 active:scale-95"
+                  >
+                    <RotateCcw size={13} aria-hidden />
+                    {tr(ui.chat.home, lang)}
+                  </button>
+                )}
+              </div>
+            </div>
           </motion.section>
         )}
       </AnimatePresence>
@@ -309,7 +261,7 @@ export default function Mascot({ lang }: { lang: Lang }) {
             animate={shadow}
             className="absolute -bottom-1.5 left-1/2 h-2.5 w-12 -translate-x-1/2 rounded-full bg-black blur-[3px]"
           />
-          <span className={`block size-full ${busy ? "mascot-think" : "mascot-bob"}`}>
+          <span className="block size-full mascot-bob">
             <motion.span
               initial={{ opacity: 0, y: -160 }}
               animate={body}

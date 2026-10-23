@@ -118,7 +118,7 @@ export default function Hero({ lang }: { lang: Lang }) {
           {tr(ui.hero.hintPre, lang)}
           <kbd className="rounded-md px-1.5 py-0.5 font-sans" style={{ background: "var(--nav)" }}>⌘</kbd>
           <kbd className="rounded-md px-1.5 py-0.5 font-sans" style={{ background: "var(--nav)" }}>⌥</kbd>
-          <span>+ /</span>
+          <span>+ S</span>
           {tr(ui.hero.hintPost, lang)}
         </p>
       </div>

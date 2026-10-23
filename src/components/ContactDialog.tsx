@@ -5,16 +5,15 @@ import emailjs from "@emailjs/browser";
 import { AnimatePresence, motion } from "motion/react";
 import { Check, X } from "lucide-react";
 import { tr, type Lang } from "@/lib/i18n";
-import { openMailto } from "@/lib/prefs";
 import { site, ui } from "@/content/site";
 
 // Ventana de contacto estilo glass. Se abre con window.dispatchEvent(new Event("contact:open")).
-// Envío: EmailJS (mismos campos que la versión anterior: name, email, message). Sin claves → abre el correo.
+// Envío: EmailJS (campos name, email, message). Todo ocurre dentro de esta ventana; no abre la app de correo.
 const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
 const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
 const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
-type Status = "idle" | "sending" | "sent" | "fallback" | "error";
+type Status = "idle" | "sending" | "sent" | "error";
 
 const field =
   "w-full rounded-2xl border border-white/15 bg-white/[0.06] px-4 py-3 text-[15px] text-white outline-none backdrop-blur-md transition-[border-color,background-color,box-shadow] duration-200 placeholder:text-white/40 focus:border-white/40 focus:bg-white/10 focus:shadow-[0_0_0_4px_rgba(217,70,239,0.18)]";
@@ -52,7 +51,7 @@ export default function ContactDialog({ lang }: { lang: Lang }) {
   }, [open]);
 
   useEffect(() => {
-    if (status !== "sent" && status !== "fallback") return;
+    if (status !== "sent") return;
     const t = setTimeout(() => setOpen(false), 3200);
     return () => clearTimeout(t);
   }, [status]);
@@ -66,15 +65,8 @@ export default function ContactDialog({ lang }: { lang: Lang }) {
       setStatus("sent"); // honeypot: un bot lo llenó; se simula éxito
       return;
     }
-    const name = String(data.get("name") ?? "").trim();
-    const email = String(data.get("email") ?? "").trim();
-    const message = String(data.get("message") ?? "").trim();
-
     if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
-      const subject = `${name} · ${tr(ui.form.title, lang)}`;
-      const body = `${message}\n\n— ${name} (${email})`;
-      openMailto(`mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
-      setStatus("fallback");
+      setStatus("error");
       return;
     }
 
@@ -88,7 +80,7 @@ export default function ContactDialog({ lang }: { lang: Lang }) {
     }
   };
 
-  const done = status === "sent" || status === "fallback";
+  const done = status === "sent";
 
   return (
     <AnimatePresence>
@@ -145,7 +137,7 @@ export default function ContactDialog({ lang }: { lang: Lang }) {
                 </motion.span>
                 <p className="mt-5 text-2xl tracking-[-0.03em]">{tr(ui.form.sentTitle, lang)}</p>
                 <p className="mt-2 font-serif text-base text-white/70">
-                  {tr(status === "fallback" ? ui.form.fallback : ui.form.sentText, lang)}
+                  {tr(ui.form.sentText, lang)}
                 </p>
               </div>
             ) : (

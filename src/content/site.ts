@@ -118,10 +118,6 @@ export const ui = {
       es: "No se pudo enviar. Intenta de nuevo o escribe directo a",
       en: "Couldn't send. Try again or write directly to",
     } as L,
-    fallback: {
-      es: "Se abrió tu app de correo con el mensaje listo para enviar.",
-      en: "Your email app opened with the message ready to send.",
-    } as L,
     close: { es: "Cerrar", en: "Close" } as L,
   },
   gallery: {
@@ -163,33 +159,8 @@ export const ui = {
     bubble: { es: "¿Te ayudo?", en: "Can I help?" } as L,
     open: { es: "Abrir chat con la estrella", en: "Open chat with the star" } as L,
     close: { es: "Cerrar chat", en: "Close chat" } as L,
-    placeholder: { es: "Escribe tu pregunta…", en: "Type your question…" } as L,
-    send: { es: "Enviar", en: "Send" } as L,
-    greeting: {
-      es: "¡Hola! Soy la estrella de Mike. Respondo preguntas sobre su experiencia, proyectos, GitHub y disponibilidad.",
-      en: "Hi! I'm Mike's star. I answer questions about his experience, projects, GitHub and availability.",
-    } as L,
-    suggestions: {
-      es: ["¿Qué proyecto de IA ha hecho?", "¿Con qué tecnologías trabaja?", "¿Está disponible para internship?"],
-      en: ["What AI project has he built?", "What technologies does he work with?", "Is he available for an internship?"],
-    },
-    thinking: { es: "Pensando…", en: "Thinking…" } as L,
-    unavailable: {
-      es: "El chat aún no está activado. Escríbele a Mike por correo.",
-      en: "The chat isn't switched on yet. Email Mike directly.",
-    } as L,
-    busy: {
-      es: "Hay mucha demanda ahora mismo. Intenta de nuevo en un momento.",
-      en: "Lots of demand right now. Please try again in a moment.",
-    } as L,
-    limit: {
-      es: "Llegaste al límite de mensajes. Escríbele a Mike por correo.",
-      en: "You've reached the message limit. Email Mike directly.",
-    } as L,
-    error: {
-      es: "No pude responder. Intenta de nuevo.",
-      en: "I couldn't answer. Please try again.",
-    } as L,
+    home: { es: "Menú principal", en: "Main menu" } as L,
+    pick: { es: "Elige una opción", en: "Pick an option" } as L,
   },
   footer: {
     rights: {
@@ -224,7 +195,7 @@ export type Work = {
   outcome?: L;
 };
 
-// Orden fijo: AgroCebada, PawAlert, TlamatIA, AquaBI y luego clientes (3 columnas x 2 filas).
+// Orden fijo: AgroCebada, PawAlert, TlamatIA, AI Resume Analyzer y luego clientes (3 columnas x 2 filas).
 export const works: Work[] = [
   {
     slug: "agrocebada",
@@ -281,6 +252,7 @@ export const works: Work[] = [
     },
     title: "PawAlert",
     kind: "project",
+    year: "2025",
     badge: { es: "🥈 2.º lugar FEPRO", en: "🥈 2nd place FEPRO" },
     summary: {
       es: "Plataforma de coordinación de rescate animal: mapa de reportes, gamificación, trust score y módulo de aliados. 330 tests con 100% de aprobación. Aliados reales: Evolución Animal y URSVA.",
@@ -324,42 +296,34 @@ export const works: Work[] = [
     },
     stack: ["React", "TypeScript", "Tailwind", "Gemini"],
     demo: "https://tlamatia-plans-nuevo.vercel.app",
-    // TODO: el repo es privado (danielalira20). Hacerlo público o quitar el botón "Code".
     image: "/images/tlamatia/landing.webp",
     imageAlt: { es: "Pantalla principal de TlamatIA", en: "TlamatIA landing screen" },
   },
   {
-    slug: "aquabi",
+    slug: "resume-ai",
     challenge: {
-      es: "Reto del UPAEP Business Intelligence Hackathon 2026 (abril): un sistema directivo para un organismo operador de agua.",
-      en: "UPAEP Business Intelligence Hackathon 2026 challenge (April): an executive system for a water utility operator.",
+      es: "Revisar un currículum contra una vacante concreta suele ser a ojo. La idea fue medirlo con IA y llevar el control de cada postulación.",
+      en: "Checking a resume against a specific job is usually done by eye. The idea was to measure it with AI and keep track of every application.",
     },
     features: [
-      { es: "Salud financiera y eficiencia operativa.", en: "Financial health and operational efficiency." },
-      { es: "Estrategia de cobranza con mapa de calor de morosidad por fraccionamiento.", en: "Collections strategy with a delinquency heatmap by neighbourhood." },
-      { es: "Segmentación de usuarios y predicciones.", en: "User segmentation and forecasts." },
+      { es: "Subes tu currículum y la vacante (empresa y puesto).", en: "Upload your resume and the job (company and title)." },
+      { es: "Calificación sobre 100 con retroalimentación hecha por IA.", en: "A score out of 100 with AI-powered feedback." },
+      { es: "Historial de postulaciones con la calificación de cada una.", en: "Application history with each one's score." },
     ],
-    roleTitle: "Full-stack Developer",
-    roleAreas: [
-      { es: "Backend", en: "Backend" },
-      { es: "Frontend", en: "Frontend" },
-      { es: "Base de datos", en: "Database" },
-      { es: "Implementación de modelos de IA", en: "AI model implementation" },
-    ],
-    outcome: {
-      es: "2.º lugar en el UPAEP BI Hackathon 2026 (abril).",
-      en: "2nd place at the UPAEP BI Hackathon 2026 (April).",
-    },
-    title: "AquaBI",
+    title: "AI Resume Analyzer",
     kind: "project",
-    year: "2026",
-    badge: { es: "🥈 2.º lugar UPAEP BI Hackathon 2026", en: "🥈 2nd place UPAEP BI Hackathon 2026" },
+    year: "2025",
     summary: {
-      es: "Sistema directivo para un organismo de agua: salud financiera, eficiencia operativa, estrategia de cobranza con mapa de calor de morosidad por fraccionamiento, segmentación de usuarios y predicciones.",
-      en: "Executive system for a water utility: financial health, operational efficiency, a collections strategy with a delinquency heatmap by neighbourhood, user segmentation and forecasts.",
+      es: "Aplicación web para llevar el control de tus postulaciones y calificar tu currículum con IA: subes el CV y la vacante, y recibes una puntuación con retroalimentación.",
+      en: "Web app to track your job applications and rate your resume with AI: upload the CV and the job, and get a score with feedback.",
     },
-    // TODO: stack y mi rol en AquaBI. El repo es privado (danielalira20/hackathon-agua-upaep).
-    stack: ["TODO: stack"],
+    stack: ["React", "TypeScript", "Tailwind", "Anthropic API", "Puter.js"],
+    repo: "https://github.com/nova-cz/ai-resume-analyzer",
+    image: "/images/projects/resume-ai.webp",
+    imageAlt: {
+      es: "Pantalla principal de la app con el historial de postulaciones y sus calificaciones",
+      en: "App home screen with the application history and their scores",
+    },
   },
   {
     slug: "be-browed",
@@ -406,7 +370,6 @@ export const works: Work[] = [
 export const otherProjects = [
   { name: "Lane Line Detection", stack: "Python, OpenCV, NumPy", href: "https://github.com/nova-cz/adaptive-lane-detection" },
   { name: "TrackMyBus", stack: "FEPRO 2024", href: "https://github.com/nova-cz/TrackMyBus" },
-  // TODO: confirmar que SATelite es el repo talent-hackathon-2025.
   { name: "SATelite", stack: "Talent Land 2025", href: "https://github.com/nova-cz/talent-hackathon-2025" },
   { name: "ExpenseTracker", stack: "Swift / SwiftUI", href: "https://github.com/nova-cz/ExpenseTracker" },
   // Sin repositorio público: enlaza al perfil.
@@ -428,8 +391,7 @@ export type Job = {
 export const experience: Job[] = [
   {
     company: "Goalpost Group",
-    // TODO: elegir un solo título. LinkedIn y CV dicen "Marketing Technology Manager".
-    role: todo("título del puesto"),
+    role: same("Marketing Technology Manager"),
     place: { es: "East Lansing, MI (EE. UU.) · Remoto", en: "East Lansing, MI (USA) · Remote" } as L,
     period: { es: "nov 2025 – presente", en: "Nov 2025 – present" } as L,
     bullets: [
@@ -453,15 +415,16 @@ export const experience: Job[] = [
     company: "Growmo Tech",
     role: { es: "Web Developer Intern", en: "Web Developer Intern" } as L,
     place: { es: "Remoto", en: "Remote" } as L,
-    // TODO: fechas. El CV dice May–Ago 2025; LinkedIn dice Sep–Nov 2025.
-    period: todo("fechas"),
+    period: { es: "sep – nov 2025", en: "Sep – Nov 2025" } as L,
     bullets: [
       {
         es: "Desarrollo web con Vue.js y Supabase; trabajo ágil con Slack y Linear.",
         en: "Web development with Vue.js and Supabase; agile workflow with Slack and Linear.",
       },
-      // TODO: descripción. El CV dice "plataforma para mejorar el inglés técnico y la empleabilidad de devs LATAM"; LinkedIn dice "fintech platform".
-      todo("descripción del proyecto"),
+      {
+        es: "Plataforma para aprender inglés especializada en desarrolladores y gente de computación.",
+        en: "A platform for learning English, specialized for developers and computing professionals.",
+      },
     ] as L[],
     logo: "/images/growmo/logo.webp",
   },
@@ -479,8 +442,7 @@ export const experience: Job[] = [
     ] as Photo[],
     role: { es: "Mentor", en: "Mentor" } as L,
     place: { es: "Puebla", en: "Puebla" } as L,
-    // TODO: fechas. El CV dice Jun 2022 – Dic 2024; LinkedIn dice Ene 2023 – Ene 2024.
-    period: todo("fechas"),
+    period: same("2022 – 2023"),
     bullets: [
       {
         es: "Modelado 3D (Onshape, SolidWorks), mecánica, electrónica y Java.",
@@ -494,6 +456,12 @@ export const experience: Job[] = [
   },
   {
     company: "ICPC Competitive Programming Club · BUAP",
+    photos: [
+      {
+        src: "/images/experience/icpc-code-rush.webp",
+        alt: { es: "Grupo de participantes y organizadores en Code Rush 2025", en: "Group of participants and organizers at Code Rush 2025" },
+      },
+    ] as Photo[],
     role: { es: "Miembro del club", en: "Club member" } as L,
     place: { es: "Puebla", en: "Puebla" } as L,
     period: same(""),
@@ -532,6 +500,12 @@ export const experience: Job[] = [
   },
   {
     company: "Camp Counselor · Sonlight Camp",
+    photos: [
+      {
+        src: "/images/experience/camp-sonlight.webp",
+        alt: { es: "Mike en el campamento de verano Sonlight, en Colorado", en: "Mike at Sonlight summer camp in Colorado" },
+      },
+    ] as Photo[],
     role: { es: "Consejero de campamento", en: "Camp Counselor" } as L,
     place: { es: "Pagosa Springs, Colorado (EE. UU.)", en: "Pagosa Springs, Colorado (USA)" } as L,
     period: { es: "veranos 2024 y 2025", en: "Summers 2024 and 2025" } as L,
@@ -547,8 +521,7 @@ export const education = {
     es: "Ingeniería en Ciencias de la Computación · promedio 9.8/10",
     en: "Computer Science Engineering · GPA 9.8/10",
   } as L,
-  // TODO: graduación. El CV dice "Summer 2027", pero termino materias en junio de 2027 y me gradúo en otoño de 2027.
-  graduation: todo("fecha de graduación"),
+  graduation: { es: "Diciembre 2027", en: "December 2027" } as L,
   courses: {
     es: "Estructuras de datos, POO, Bases de datos avanzadas, Sistemas operativos, Ciberseguridad, Redes (CISCO), IA, IoT, Robótica, Álgebra lineal, Matemáticas discretas.",
     en: "Data Structures, OOP, Advanced Databases, Operating Systems, Cybersecurity, Networks (CISCO), AI, IoT, Robotics, Linear Algebra, Discrete Math.",
@@ -566,8 +539,7 @@ export const awards: { text: L; detail?: L; photos?: Photo[] }[] = [
   },
   {
     text: { es: "🥈 2.º lugar · FEPRO", en: "🥈 2nd place · FEPRO" },
-    // TODO: año del FEPRO de PawAlert.
-    detail: { es: "PawAlert · TODO: año", en: "PawAlert · TODO: year" },
+    detail: { es: "PawAlert · 2025", en: "PawAlert · 2025" },
   },
   {
     text: { es: "🥉 3.er lugar · DigiEduHack 2025", en: "🥉 3rd place · DigiEduHack 2025" },

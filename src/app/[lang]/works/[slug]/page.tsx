@@ -1,5 +1,6 @@
 import { ViewTransition } from "react";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
@@ -99,6 +100,28 @@ export default async function WorkPage({ params }: PageProps<"/[lang]/works/[slu
         <p className={body}>
           <T>{tr(work.outcome, lang)}</T>
         </p>
+      ),
+    });
+
+  if (work.photos?.length)
+    sections.push({
+      id: "recognition",
+      label: ui.case.gallery,
+      content: (
+        <div className="mt-6 grid items-start gap-4 sm:grid-cols-2">
+          {work.photos.map((p) => (
+            <figure key={p.src} className="overflow-hidden border border-line" style={{ borderRadius: 24 }}>
+              <Image
+                src={p.src}
+                alt={tr(p.alt, lang)}
+                width={p.width}
+                height={p.height}
+                sizes="(min-width: 896px) 440px, 100vw"
+                className="h-auto w-full"
+              />
+            </figure>
+          ))}
+        </div>
       ),
     });
 

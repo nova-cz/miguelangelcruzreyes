@@ -7,8 +7,9 @@ import T from "./T";
 const chip = "rounded-full border border-line px-3 py-1 text-xs text-muted";
 const tile = "grid shrink-0 place-items-center rounded-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]";
 
-const medalBg: Record<string, string> = {
-  "🥉": "linear-gradient(145deg,#e0a375,#8a5530)",
+const medalImg: Record<string, string> = {
+  "🥈": "/images/medal-2.webp",
+  "🥉": "/images/medal-3.webp",
 };
 
 // El premio trae la medalla como primer carácter del texto: se separa para mostrarla en su propio recuadro.
@@ -145,9 +146,9 @@ export default function About({ lang }: { lang: Lang }) {
                   className="group flex items-center gap-4 rounded-2xl border border-line p-3.5 transition-[background-color,border-color] duration-200 hover:border-[#f5c451]/50 hover:bg-[#f5c451]/[0.06]"
                   style={{ background: "var(--card)" }}
                 >
-                  {medal === "🥈" ? (
+                  {medal && medalImg[medal] ? (
                     <Image
-                      src="/images/medal-2.webp"
+                      src={medalImg[medal]}
                       alt=""
                       width={48}
                       height={48}
@@ -156,10 +157,10 @@ export default function About({ lang }: { lang: Lang }) {
                   ) : (
                     <span
                       className={`${tile} size-12 text-xl transition-transform duration-200 ease-out group-hover:scale-105`}
-                      style={{ background: medal ? medalBg[medal] : "linear-gradient(145deg,#fde68a,#d4a017)", color: medal ? "#fff" : "#3b2a00" }}
+                      style={{ background: "linear-gradient(145deg,#fde68a,#d4a017)", color: "#3b2a00" }}
                       aria-hidden
                     >
-                      {medal ?? <Trophy size={20} />}
+                      <Trophy size={20} />
                     </span>
                   )}
                   <div className="min-w-0">

@@ -149,6 +149,7 @@ export const ui = {
     role: { es: "Qué hice yo", en: "What I did" } as L,
     roleTitle: { es: "Rol", en: "Role" } as L,
     outcome: { es: "Resultado", en: "Outcome" } as L,
+    gallery: { es: "Reconocimiento", en: "Recognition" } as L,
     type: { es: "Tipo", en: "Type" } as L,
     stack: { es: "Stack", en: "Stack" } as L,
     year: { es: "Año", en: "Year" } as L,
@@ -190,6 +191,8 @@ export type Work = {
   image?: string;
   imageAlt?: L;
   status?: L;
+  // Fotos de reconocimiento del caso (premiación, diploma). Llevan tamaño para no mover el layout.
+  photos?: (Photo & { width: number; height: number })[];
   // Secciones de la página del caso. Solo se muestran las que tienen contenido.
   challenge?: L;
   features?: L[];
@@ -199,7 +202,7 @@ export type Work = {
   outcome?: L;
 };
 
-// Orden fijo: AgroCebada, PawAlert, TlamatIA, AI Resume Analyzer y luego clientes (3 columnas x 2 filas).
+// Orden fijo: AgroCebada, PawAlert, TlamatIA, AquaBI y luego clientes (3 columnas x 2 filas).
 export const works: Work[] = [
   {
     slug: "agrocebada",
@@ -235,13 +238,16 @@ export const works: Work[] = [
   {
     slug: "pawalert",
     challenge: {
-      es: "Reto de desarrollo de software patrocinado por PolyWorks México.",
-      en: "Software development challenge sponsored by PolyWorks México.",
+      es: "Reto de desarrollo de software con PolyWorks México, con mentorías semanales. La pregunta de partida: ¿qué pasa después de que alguien encuentra a un animal en riesgo y decide ayudar? Un reporte es solo el inicio: hay que considerar evidencia, ubicación, urgencia, disponibilidad, transporte, seguimiento, hogares temporales, adopciones y privacidad.",
+      en: "Software development challenge with PolyWorks México, with weekly mentoring. The starting question: what happens after someone finds an animal at risk and decides to help? A report is only the beginning: evidence, location, urgency, availability, transport, follow-up, foster homes, adoptions and privacy all matter.",
     },
     features: [
-      { es: "Mapa de reportes.", en: "Report map." },
-      { es: "Gamificación y trust score.", en: "Gamification and trust score." },
-      { es: "Módulo de aliados.", en: "Allies module." },
+      { es: "Reportes desde la app o desde un flujo conversacional por WhatsApp, con fotos y ubicación, que llegan al mismo sistema.", en: "Reports from the app or from a conversational WhatsApp flow, with photos and location, all landing in the same system." },
+      { es: "Mapa de reportes y avistamientos.", en: "Map of reports and sightings." },
+      { es: "Coordinación de voluntarios, asignaciones y rutas.", en: "Volunteer coordination, assignments and routes." },
+      { es: "Seguimiento de rescates, eventos y procesos de adopción.", en: "Rescue tracking, events and adoption processes." },
+      { es: "Validaciones asistidas por IA para analizar evidencia visual.", en: "AI-assisted validation to analyze visual evidence." },
+      { es: "Gamificación, trust score y módulo de aliados.", en: "Gamification, trust score and an allies module." },
     ],
     roleTitle: "Full-stack Developer",
     roleAreas: [
@@ -251,18 +257,18 @@ export const works: Work[] = [
       { es: "Implementación de modelos de IA", en: "AI model implementation" },
     ],
     outcome: {
-      es: "2.º lugar en FEPRO. 330 tests con 100% de aprobación. Aliados reales: Evolución Animal y URSVA.",
-      en: "2nd place at FEPRO. 330 tests with a 100% pass rate. Real partners: Evolución Animal and URSVA.",
+      es: "2.º lugar en FEPRO BUAP 2026, categoría empresa con PolyWorks México. 330 tests con 100% de aprobación. Aliados reales: Evolución Animal y URSVA.",
+      en: "2nd place at FEPRO BUAP 2026, company category with PolyWorks México. 330 tests with a 100% pass rate. Real partners: Evolución Animal and URSVA.",
     },
     title: "PawAlert",
     kind: "project",
-    year: "2025",
-    badge: { es: "🥈 2.º lugar FEPRO", en: "🥈 2nd place FEPRO" },
+    year: "2025 – 2026",
+    badge: { es: "🥈 2.º lugar FEPRO 2026", en: "🥈 2nd place FEPRO 2026" },
     summary: {
-      es: "Plataforma de coordinación de rescate animal: mapa de reportes, gamificación, trust score y módulo de aliados. 330 tests con 100% de aprobación. Aliados reales: Evolución Animal y URSVA.",
-      en: "Animal-rescue coordination platform: report map, gamification, trust score and an allies module. 330 tests with a 100% pass rate. Real partners: Evolución Animal and URSVA.",
+      es: "Plataforma de coordinación de rescate animal: el reporte llega desde la app o WhatsApp y se valida, prioriza y da seguimiento hasta el rescate o la adopción. Incluye mapa, voluntarios y rutas, y validación de evidencia con IA. 330 tests con 100% de aprobación.",
+      en: "Animal-rescue coordination platform: a report arrives from the app or WhatsApp and is validated, prioritized and followed up through rescue or adoption. Includes a map, volunteers and routes, and AI evidence validation. 330 tests with a 100% pass rate.",
     },
-    stack: ["React Native", "Expo", "Supabase"],
+    stack: ["TypeScript", "React Native", "Expo", "Python", "FastAPI", "Supabase", "PostgreSQL / PostGIS", "Gemini", "WhatsApp Cloud API", "OSRM", "VROOM", "Firebase", "Jest", "Pytest", "Playwright"],
     demo: "https://paw-alert-pwa.vercel.app/map",
     repo: "https://github.com/nova-cz/PawAlert",
     image: "/images/projects/pawalert.webp",
@@ -304,30 +310,62 @@ export const works: Work[] = [
     imageAlt: { es: "Pantalla principal de TlamatIA", en: "TlamatIA landing screen" },
   },
   {
-    slug: "resume-ai",
+    slug: "aquabi",
     challenge: {
-      es: "Revisar un currículum contra una vacante concreta suele ser a ojo. La idea fue medirlo con IA y llevar el control de cada postulación.",
-      en: "Checking a resume against a specific job is usually done by eye. The idea was to measure it with AI and keep track of every application.",
+      es: "Reto real de Tekuno en el UPAEP Business Intelligence Hackathon 2026 (abril): mejorar la toma de decisiones de una operación de agua con datos. 24 horas y más de 184,000 registros históricos. Antes de graficar, había que entender la calidad de los datos.",
+      en: "Real Tekuno challenge at the UPAEP Business Intelligence Hackathon 2026 (April): improve decision-making for a water utility operation through data. 24 hours and more than 184,000 historical records. Before charting anything, we had to understand the data's quality.",
     },
     features: [
-      { es: "Subes tu currículum y la vacante (empresa y puesto).", en: "Upload your resume and the job (company and title)." },
-      { es: "Calificación sobre 100 con retroalimentación hecha por IA.", en: "A score out of 100 with AI-powered feedback." },
-      { es: "Historial de postulaciones con la calificación de cada una.", en: "Application history with each one's score." },
+      { es: "Auditoría de la base de datos original en Microsoft Access, limpieza y reorganización, y migración a una arquitectura en PostgreSQL.", en: "Audit of the original Microsoft Access database, cleaning and reorganization, and migration to a PostgreSQL-based architecture." },
+      { es: "Análisis exploratorio (EDA), segmentación RFM, clustering con K-Means y pronóstico de series de tiempo con Meta Prophet.", en: "Exploratory data analysis (EDA), RFM segmentation, K-Means clustering and time-series forecasting with Meta Prophet." },
+      { es: "Dashboard funcional con segmentos de clientes, riesgo de pago, tendencias financieras y un mapa de calor de morosidad por fraccionamiento para priorizar acciones.", en: "Functional dashboard with customer segments, payment risk, financial trends and a delinquency heatmap by neighbourhood to prioritize action." },
     ],
-    title: "AI Resume Analyzer",
+    roleTitle: "Full-stack Developer",
+    roleAreas: [
+      { es: "Backend", en: "Backend" },
+      { es: "Frontend", en: "Frontend" },
+      { es: "Base de datos", en: "Database" },
+      { es: "Implementación de modelos de IA", en: "AI model implementation" },
+    ],
+    outcome: {
+      es: "2.º lugar en el UPAEP BI Hackathon 2026 (abril), en un equipo de 4.",
+      en: "2nd place at the UPAEP BI Hackathon 2026 (April), in a team of 4.",
+    },
+    title: "AquaBI",
     kind: "project",
-    year: "2025",
+    year: "2026",
+    badge: { es: "🥈 2.º lugar UPAEP BI Hackathon 2026", en: "🥈 2nd place UPAEP BI Hackathon 2026" },
     summary: {
-      es: "Aplicación web para llevar el control de tus postulaciones y calificar tu currículum con IA: subes el CV y la vacante, y recibes una puntuación con retroalimentación.",
-      en: "Web app to track your job applications and rate your resume with AI: upload the CV and the job, and get a score with feedback.",
+      es: "Solución de inteligencia de negocios para un organismo de agua, hecha en 24 horas con más de 184,000 registros históricos: de una base de datos en Access a un dashboard con segmentación, riesgo de pago, tendencias y pronósticos.",
+      en: "Business intelligence solution for a water utility, built in 24 hours from more than 184,000 historical records: from an Access database to a dashboard with segmentation, payment risk, trends and forecasts.",
     },
-    stack: ["React", "TypeScript", "Tailwind", "Anthropic API", "Puter.js"],
-    repo: "https://github.com/nova-cz/ai-resume-analyzer",
-    image: "/images/projects/resume-ai.webp",
+    stack: ["Python", "Pandas", "scikit-learn", "Prophet", "Supabase / PostgreSQL", "Next.js", "Vercel", "Git & GitHub"],
+    demo: "https://hackathon-agua-upaep.onrender.com",
+    image: "/images/projects/aquabi.webp",
     imageAlt: {
-      es: "Pantalla principal de la app con el historial de postulaciones y sus calificaciones",
-      en: "App home screen with the application history and their scores",
+      es: "Pantalla de Estrategia de Cobranza de AquaBI con el mapa de calor de morosidad y la segmentación de usuarios",
+      en: "AquaBI Collections Strategy screen with the delinquency heatmap and user segmentation",
     },
+    photos: [
+      {
+        src: "/images/aquabi/diploma.webp",
+        width: 800,
+        height: 1422,
+        alt: {
+          es: "Diploma de 2.º lugar en el Hackathon de Inteligencia de Negocios UPAEP 2026",
+          en: "2nd place diploma from the UPAEP Business Intelligence Hackathon 2026",
+        },
+      },
+      {
+        src: "/images/aquabi/premiacion.webp",
+        width: 1600,
+        height: 1200,
+        alt: {
+          es: "Premiación del Hackathon de Inteligencia de Negocios UPAEP 2026",
+          en: "Awards ceremony of the UPAEP Business Intelligence Hackathon 2026",
+        },
+      },
+    ],
   },
   {
     slug: "be-browed",
@@ -372,6 +410,7 @@ export const works: Work[] = [
 ];
 
 export const otherProjects = [
+  { name: "AI Resume Analyzer", stack: "React, TypeScript, Anthropic API", href: "https://github.com/nova-cz/ai-resume-analyzer" },
   { name: "Lane Line Detection", stack: "Python, OpenCV, NumPy", href: "https://github.com/nova-cz/adaptive-lane-detection" },
   { name: "TrackMyBus", stack: "FEPRO 2024", href: "https://github.com/nova-cz/TrackMyBus" },
   { name: "SATelite", stack: "Talent Land 2025", href: "https://github.com/nova-cz/talent-hackathon-2025" },
@@ -543,8 +582,8 @@ export const awards: { text: L; detail?: L; photos?: Photo[] }[] = [
     detail: { es: "AquaBI · abril 2026", en: "AquaBI · April 2026" },
   },
   {
-    text: { es: "🥈 2.º lugar · FEPRO", en: "🥈 2nd place · FEPRO" },
-    detail: { es: "PawAlert · 2025", en: "PawAlert · 2025" },
+    text: { es: "🥈 2.º lugar · FEPRO BUAP 2026", en: "🥈 2nd place · FEPRO BUAP 2026" },
+    detail: { es: "PawAlert · FEPRO BUAP 2026, categoría empresa", en: "PawAlert · FEPRO BUAP 2026, company category" },
   },
   {
     text: { es: "🥉 3.er lugar · DigiEduHack 2025", en: "🥉 3rd place · DigiEduHack 2025" },

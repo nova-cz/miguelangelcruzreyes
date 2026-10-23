@@ -268,7 +268,7 @@ export const works: Work[] = [
     },
     title: "PawAlert",
     kind: "project",
-    year: "2025 – 2026",
+    year: "2026",
     badge: { es: "🥈 2.º lugar FEPRO 2026", en: "🥈 2nd place FEPRO 2026" },
     summary: {
       es: "Plataforma de coordinación de rescate animal: el reporte llega desde la app o WhatsApp y se valida, prioriza y da seguimiento hasta el rescate o la adopción. Incluye mapa, voluntarios y rutas, y validación de evidencia con IA. 330 tests con 100% de aprobación.",

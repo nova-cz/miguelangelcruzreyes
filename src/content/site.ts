@@ -218,6 +218,12 @@ export const works: Work[] = [
       es: "Responsable de la evaluación común de modelos (T03) en un equipo de 5.",
       en: "Owner of the shared model evaluation (T03) in a team of 5.",
     },
+    roleTitle: "Full-stack Developer",
+    roleAreas: [
+      { es: "Frontend", en: "Frontend" },
+      { es: "Construcción de los modelos de ML", en: "Building the ML models" },
+      { es: "Construcción de las reglas", en: "Building the rules" },
+    ],
     outcome: { es: "En curso: resultados pendientes.", en: "In progress: results pending." },
     title: "AgroCebada",
     kind: "project",

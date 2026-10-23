@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { GraduationCap, Trophy } from "lucide-react";
+import { GraduationCap } from "lucide-react";
 import { tr, type Lang } from "@/lib/i18n";
 import { awards, education, experience, ui } from "@/content/site";
 import T from "./T";
@@ -134,7 +134,7 @@ export default function About({ lang }: { lang: Lang }) {
 
         <div className="glass-card glass-card-gold p-6 sm:p-8">
           <h3 className="flex items-center gap-3 text-3xl font-normal tracking-[-0.03em]">
-            <Trophy size={26} className="text-[#f5c451]" aria-hidden />
+            <Image src="/images/trophy.webp" alt="" width={32} height={32} className="size-8 object-contain" />
             <span className="text-gold">{tr(ui.about.awardsTitle, lang)}</span>
           </h3>
           <ul className="mt-5 space-y-2.5">
@@ -155,13 +155,13 @@ export default function About({ lang }: { lang: Lang }) {
                       className="size-12 shrink-0 drop-shadow-[0_0_3px_rgba(255,255,255,0.4)] transition-transform duration-200 ease-out group-hover:scale-110"
                     />
                   ) : (
-                    <span
-                      className={`${tile} size-12 text-xl transition-transform duration-200 ease-out group-hover:scale-105`}
-                      style={{ background: "linear-gradient(145deg,#fde68a,#d4a017)", color: "#3b2a00" }}
-                      aria-hidden
-                    >
-                      <Trophy size={20} />
-                    </span>
+                    <Image
+                      src="/images/trophy.webp"
+                      alt=""
+                      width={48}
+                      height={48}
+                      className="size-12 shrink-0 object-contain p-0.5 transition-transform duration-200 ease-out group-hover:scale-110"
+                    />
                   )}
                   <div className="min-w-0">
                     <p className="text-[15px] leading-snug tracking-[-0.01em]">{title}</p>

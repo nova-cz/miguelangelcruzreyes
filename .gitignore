@@ -49,3 +49,8 @@ yarn-error.log*
 # Archivos de sistema
 .DS_Store
 Thumbs.db
+# Next.js
+/.next/
+/out/
+next-env.d.ts
+*.tsbuildinfo

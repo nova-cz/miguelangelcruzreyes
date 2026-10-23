@@ -1,0 +1,376 @@
+@import "tailwindcss";
+
+/* Tokens. Oscuro por defecto (referencia: ivankalkaev.com); [data-theme="light"] lo invierte. */
+:root,
+:root[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --fg: #ffffff;
+  --fg-muted: rgba(255, 255, 255, 0.62);
+  --nav: #262626;
+  --nav-active: #ffffff;
+  --nav-active-fg: #0a0a0a;
+  --card: rgba(255, 255, 255, 0.06);
+  --panel: #141414;
+  --line: rgba(255, 255, 255, 0.1);
+  --star: 255, 255, 255;
+  --todo: #fbbf24;
+}
+
+:root[data-theme="light"] {
+  --bg: #f6f5f3;
+  --fg: #0a0a0a;
+  --fg-muted: rgba(10, 10, 10, 0.6);
+  --nav: #e6e4e0;
+  --nav-active: #0a0a0a;
+  --nav-active-fg: #ffffff;
+  --card: rgba(10, 10, 10, 0.05);
+  --panel: #ffffff;
+  --line: rgba(10, 10, 10, 0.12);
+  --star: 10, 10, 10;
+  --todo: #b45309;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--fg-muted);
+  --color-line: var(--line);
+  --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-newsreader);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+::selection {
+  background: rgba(10, 99, 255, 0.55);
+  color: #fff;
+}
+
+/* El preloader no aparece si ya se vio en esta sesión o si hay reduced-motion. */
+html[data-seen="1"] .preloader {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .preloader {
+    display: none;
+  }
+}
+
+/* ---------- Entrada del hero (se activa cuando el preloader termina) ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(6px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+html[data-ready="true"] .reveal {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* ---------- Objetos flotantes: mismos keyframes medidos en ivankalkaev.com ---------- */
+@keyframes hero-object-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate3d(var(--float-x), calc(var(--float-y) * -1), 0) rotate(var(--float-rotate));
+  }
+  50% {
+    transform: translate3d(0, var(--float-y), 0) rotate(0deg);
+  }
+  75% {
+    transform: translate3d(calc(var(--float-x) * -1), 0, 0) rotate(calc(var(--float-rotate) * -1));
+  }
+}
+.hero-object-float {
+  animation: hero-object-float 6600ms linear infinite;
+  will-change: transform;
+}
+
+/* Brillo metálico que recorre un texto (mismo recurso que el logo de Apple en la referencia). */
+@keyframes metal-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ---------- Botones de vidrio ---------- */
+.glass-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 30px;
+  border-radius: 1000px;
+  font-size: 22px;
+  line-height: 1.1;
+  color: #fff;
+  isolation: isolate;
+  transition: scale 0.15s ease-out, box-shadow 0.3s ease-out, filter 0.3s ease-out;
+}
+.glass-btn::before {
+  /* reflejo superior */
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 3px 10px auto 10px;
+  height: 46%;
+  border-radius: 1000px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.04));
+}
+.glass-btn:hover {
+  scale: 1.04;
+}
+.glass-btn:active {
+  scale: 0.96;
+}
+.glass-btn[data-variant="dark"] {
+  background: linear-gradient(180deg, #4a4a4a 0%, #1d1d1d 52%, #2c2c2c 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.6),
+    0 8px 20px rgba(0, 0, 0, 0.45);
+}
+.glass-btn[data-variant="magenta"] {
+  background: linear-gradient(180deg, #e879f9 0%, #a21caf 50%, #d946ef 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -3px 8px rgba(88, 12, 110, 0.65),
+    0 0 26px rgba(217, 70, 239, 0.45),
+    0 10px 24px rgba(120, 20, 150, 0.4);
+}
+.glass-btn[data-variant="magenta"]:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -3px 8px rgba(88, 12, 110, 0.65),
+    0 0 44px rgba(217, 70, 239, 0.75),
+    0 10px 28px rgba(120, 20, 150, 0.5);
+}
+
+/* ---------- Tarjetas de vidrio (Experience, Educación, Premios, Galería, Skills) ---------- */
+.glass-card {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: linear-gradient(160deg, var(--card), transparent 65%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 20px 50px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(10px);
+}
+
+/* ---------- Tecnologías: iconos brillosos del color de cada marca, con movimiento de ola ---------- */
+@keyframes skill-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(2deg);
+  }
+}
+@keyframes skill-shine {
+  0%,
+  65% {
+    transform: translateX(-140%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(340%) skewX(-20deg);
+  }
+}
+.skill-tile {
+  --c: #6b6b73;
+  --ic: #fff;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 18px;
+  outline: none;
+  animation: skill-bob 3.6s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * -0.22s);
+  transition: scale 0.15s ease-out;
+}
+.skill-tile:hover,
+.skill-tile:focus-visible {
+  scale: 1.16;
+  animation-play-state: paused;
+  z-index: 3;
+}
+.skill-icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  color: var(--ic);
+  isolation: isolate;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--c) 60%, white) 0%,
+    var(--c) 52%,
+    color-mix(in srgb, var(--c) 70%, black) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -4px 7px rgba(0, 0, 0, 0.32),
+    0 8px 18px color-mix(in srgb, var(--c) 40%, transparent);
+  transition: box-shadow 0.3s ease-out;
+}
+.skill-tile:hover .skill-icon,
+.skill-tile:focus-visible .skill-icon {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 -4px 7px rgba(0, 0, 0, 0.32),
+    0 0 30px color-mix(in srgb, var(--c) 70%, transparent);
+}
+.skill-icon::before {
+  /* reflejo superior, igual que en los botones de vidrio */
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 3px 5px auto 5px;
+  height: 46%;
+  border-radius: 14px 14px 22px 22px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0));
+}
+.skill-icon::after {
+  /* destello que cruza el icono de vez en cuando */
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 38%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  animation: skill-shine 5.5s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * -0.41s);
+}
+.skill-icon > * {
+  position: relative;
+  z-index: 1;
+}
+.skill-tip {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  transform: translate(-50%, 6px);
+  padding: 4px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--fg);
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+}
+.skill-tile:hover .skill-tip,
+.skill-tile:focus-visible .skill-tip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .skill-tile,
+  .skill-icon::after {
+    animation: none;
+  }
+}
+
+/* Entrada de las páginas de caso: sube y se desenfoca con un pequeño escalonado. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(6px);
+  }
+}
+.rise {
+  animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 90ms + 120ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
+}
+
+/* La mascota flota suavemente; mientras el chat "piensa" se agita. */
+@keyframes mascot-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(3deg);
+  }
+}
+@keyframes mascot-think {
+  from {
+    transform: translateY(0) rotate(-9deg);
+  }
+  to {
+    transform: translateY(-5px) rotate(9deg);
+  }
+}
+.mascot-bob {
+  animation: mascot-bob 3.4s ease-in-out infinite;
+}
+.mascot-think {
+  animation: mascot-think 0.45s ease-in-out infinite alternate;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mascot-bob,
+  .mascot-think {
+    animation: none;
+  }
+}
+
+/* ---------- Utilidades ---------- */
+.todo {
+  color: var(--todo);
+  font-style: italic;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .hero-object-float {
+    animation: none;
+  }
+  .reveal {
+    transition: none;
+    transform: none;
+    filter: none;
+  }
+}

@@ -1,52 +1,83 @@
 <div align="center">
-  <h1>Miguel Angel Cruz Reyes</h1>
-  <h2>Portafolio Profesional</h2>
-  
+  <h1>Miguel Cruz</h1>
+  <p>Portafolio v2 · Agentes de IA y productos full-stack</p>
+  <p><a href="https://miguelcruz.vercel.app"><strong>miguelcruz.vercel.app</strong></a></p>
+
   <div>
-    <img src="https://img.shields.io/badge/-React-61DAFB?style=for-the-badge&logo=react&logoColor=white" />
-    <img src="https://img.shields.io/badge/-JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
-    <img src="https://img.shields.io/badge/-Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" />
-    <img src="https://img.shields.io/badge/-Three.js-000000?style=for-the-badge&logo=three.js&logoColor=white" />
+    <img src="https://img.shields.io/badge/-Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" />
+    <img src="https://img.shields.io/badge/-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
     <img src="https://img.shields.io/badge/-Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+    <img src="https://img.shields.io/badge/-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" />
   </div>
 </div>
 
-## 👨‍💻 Sobre Mí
+## Qué es
 
-¡Hola! Soy Miguel Ángel Cruz Reyes, estudiante de Ingeniería en Ciencias de la Computación en la BUAP con una gran pasión por la programación, la enseñanza y la tecnología. Este portafolio muestra mis proyectos, habilidades y experiencia en el desarrollo de software.
+Mi portafolio profesional. Lo hice para aplicar a internships de Software Engineering e IA en 2027. Está en español e inglés, y un recruiter debe poder entender en pocos segundos quién soy, qué construyo y cómo contactarme.
 
-## 🚀 Proyectos Destacados
+*English:* personal portfolio, bilingual (ES/EN), built with Next.js. Live at [miguelcruz.vercel.app](https://miguelcruz.vercel.app).
 
-- **Vetopolis** - Plataforma web para encontrar y agendar citas con veterinarios
-- **Expense Tracker** - Aplicación de finanzas personales con soporte multi-moneda
-- **Track My Bus** - Aplicación móvil para seguimiento de rutas de autobuses universitarios
-- **Star-Delta Circuit Calculator** - Herramienta web para cálculos de circuitos eléctricos
+## Qué incluye
 
-## 💻 Habilidades Técnicas
+- **Dos idiomas** con rutas `/es` y `/en`. Detecta el idioma del navegador y recuerda la elección.
+- **Casos de estudio** por proyecto (`/[lang]/works/[slug]`), con problema, rol, stack y resultado.
+- **Nova**, la estrella del sitio: un asistente de preguntas y respuestas de opción múltiple sobre mi experiencia, proyectos y disponibilidad. Se abre con el botón del hero o con `⌘ + ⌥ + S` (`Ctrl + Alt + S`).
+- **Formulario de contacto** en una ventana emergente que envía el mensaje a mi correo con EmailJS.
+- Tema oscuro y claro, galería, premios y educación.
+- Respeta `prefers-reduced-motion` y se puede usar con teclado.
 
-- **Lenguajes**: JavaScript, TypeScript, Python, Java, C++
-- **Frontend**: React, Next.js, Tailwind CSS, Three.js
-- **Backend**: Node.js, Express, FastAPI, Django
-- **Bases de Datos**: SQL, Supabase, Firebase
-- **DevOps**: Docker, CI/CD, GitHub Actions
+## Stack
 
-## 📚 Educación
+- [Next.js](https://nextjs.org) (App Router) y React
+- TypeScript
+- Tailwind CSS 4
+- [Motion](https://motion.dev) para las animaciones
+- [EmailJS](https://www.emailjs.com) para el formulario de contacto
+- Despliegue en [Vercel](https://vercel.com)
 
-- **Ingeniería en Ciencias de la Computación**
-  Benemérita Universidad Autónoma de Puebla (BUAP)
-  - Promedio: 3.9/4.0
-  - Fecha de graduación esperada: Diciembre 2025
+## Estructura
 
-## 🏆 Logros
+```
+src/
+  app/[lang]/        páginas por idioma y casos de estudio
+  components/        Hero, About, Works, Mascot (Nova), ContactDialog…
+  content/
+    site.ts          TODO el texto y los datos del sitio (es / en)
+    star-flow.ts     árbol de preguntas y respuestas de Nova
+  lib/               i18n y utilidades
+public/images/       fotos y capturas en WebP
+docs/inspo/          referencias de diseño
+```
 
-- 4° lugar en la categoría de aplicaciones de software avanzado en FEPRO 2024
-- 7° lugar en el Hackathon de Talent Land 2025 (pista Capital One)
-- Clasificación a la Competencia Nacional de Robótica FIRST Tech Challenge
+Todo el contenido vive en `src/content/site.ts`. Los componentes solo leen de ahí, y las respuestas de Nova salen de los mismos datos.
 
-## 🌐 Contacto
+## Correr en local
 
-- 📧 Email: cruzmiguelangel858@gmail.com
-- 💼 LinkedIn: [linkedin.com/in/miguelcr4](https://linkedin.com/in/miguelcr4)
-- 💻 GitHub: [github.com/nova-cz](https://github.com/nova-cz)
+```bash
+npm install
+npm run dev
+```
 
----
+Abre [http://localhost:3000](http://localhost:3000). Otros comandos: `npm run build`, `npm run start` y `npm run lint`.
+
+## Variables de entorno
+
+Solo se necesitan para el formulario de contacto (ver `.env.example`):
+
+| Variable | Qué es |
+|---|---|
+| `NEXT_PUBLIC_EMAILJS_SERVICE_ID` | ID del servicio de EmailJS |
+| `NEXT_PUBLIC_EMAILJS_TEMPLATE_ID` | ID de la plantilla |
+| `NEXT_PUBLIC_EMAILJS_PUBLIC_KEY` | Public Key de la cuenta |
+
+También se leen con el prefijo `VITE_APP_EMAILJS_*` del portafolio anterior. La plantilla de EmailJS recibe los campos `name`, `email` y `message`. Sin estas variables el formulario muestra un error al enviar.
+
+## Despliegue
+
+Cada push a `main` se publica en producción en Vercel. Las demás ramas generan una URL de preview. La versión anterior del portafolio está en el tag `v1`.
+
+## Contacto
+
+- Correo: [cruzmiguelangel858@gmail.com](mailto:cruzmiguelangel858@gmail.com)
+- LinkedIn: [linkedin.com/in/miguelcr4](https://www.linkedin.com/in/miguelcr4/)
+- GitHub: [github.com/nova-cz](https://github.com/nova-cz)

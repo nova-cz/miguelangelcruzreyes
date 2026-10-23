@@ -47,8 +47,12 @@ export default function Hero({ lang }: { lang: Lang }) {
       <FloatingObjects />
 
       <div className="relative z-10 flex w-full max-w-[420px] flex-col items-center">
-        <div
-          className="reveal mb-7 grid size-[60px] place-items-center overflow-hidden rounded-full text-lg font-medium"
+        <a
+          href={site.github}
+          target="_blank"
+          rel="noopener"
+          aria-label="GitHub"
+          className="reveal mb-7 grid size-[60px] place-items-center overflow-hidden rounded-full text-lg font-medium transition-[scale] duration-150 ease-out hover:scale-105 active:scale-95"
           style={{ ...reveal(0), background: "linear-gradient(135deg,#3b3b3b,#151515)", color: "#fff", boxShadow: "0 0 0 1px var(--line)" }}
         >
           {site.avatar ? (
@@ -57,7 +61,7 @@ export default function Hero({ lang }: { lang: Lang }) {
           ) : (
             <span aria-hidden>{site.initials}</span>
           )}
-        </div>
+        </a>
 
         <h1 className="reveal text-2xl font-normal leading-[1.35] tracking-[-0.03em]" style={reveal(1)}>
           <span className="block">{tr(ui.hero.im, lang)}</span>

@@ -167,12 +167,12 @@ export const ui = {
     placeholder: { es: "Escribe tu pregunta…", en: "Type your question…" } as L,
     send: { es: "Enviar", en: "Send" } as L,
     greeting: {
-      es: "¡Hola! Soy la estrella de Mike. Respondo preguntas sobre su experiencia, proyectos y disponibilidad.",
-      en: "Hi! I'm Mike's star. I answer questions about his experience, projects and availability.",
+      es: "¡Hola! Soy la estrella de Mike. Respondo preguntas sobre su experiencia, proyectos, GitHub y disponibilidad.",
+      en: "Hi! I'm Mike's star. I answer questions about his experience, projects, GitHub and availability.",
     } as L,
     suggestions: {
-      es: ["¿Qué proyecto de IA ha hecho?", "¿Está disponible para internship?"],
-      en: ["What AI project has he built?", "Is he available for an internship?"],
+      es: ["¿Qué proyecto de IA ha hecho?", "¿Con qué tecnologías trabaja?", "¿Está disponible para internship?"],
+      en: ["What AI project has he built?", "What technologies does he work with?", "Is he available for an internship?"],
     },
     thinking: { es: "Pensando…", en: "Thinking…" } as L,
     unavailable: {

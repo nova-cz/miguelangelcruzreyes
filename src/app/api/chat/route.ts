@@ -7,19 +7,54 @@ const MODEL = process.env.CHAT_MODEL ?? "claude-opus-5-5";
 
 const MAX_MESSAGES = 12;
 const MAX_CHARS = 500;
-const LIMIT = 15; // mensajes por IP y por hora (en memoria: es por instancia en serverless)
+const LIMIT = 15; // mensajes por IP y por hora
+const GLOBAL_LIMIT = 300; // mensajes por hora entre todos los visitantes (tope de gasto)
 const WINDOW_MS = 60 * 60 * 1000;
+// En memoria: vale por instancia. Para un límite compartido entre instancias usa un almacén (Upstash/Redis/KV)
+// y pon además un límite de gasto en la clave de Anthropic.
 const hits = new Map<string, { count: number; reset: number }>();
+const global = { count: 0, reset: 0 };
 
 function rateLimited(ip: string) {
   const now = Date.now();
+
+  if (global.reset < now) {
+    global.count = 0;
+    global.reset = now + WINDOW_MS;
+    for (const [key, entry] of hits) if (entry.reset < now) hits.delete(key); // limpia entradas vencidas
+  }
+
+  // 1) Límite por IP primero: una IP que ya excedió su cuota no consume el tope global de los demás.
   const entry = hits.get(ip);
-  if (!entry || entry.reset < now) {
-    hits.set(ip, { count: 1, reset: now + WINDOW_MS });
+  if (entry && entry.reset >= now && entry.count >= LIMIT) return true;
+
+  // 2) Tope global (gasto): solo cuentan las peticiones que sí llegarán a la API.
+  if (global.count >= GLOBAL_LIMIT) return true;
+
+  if (!entry || entry.reset < now) hits.set(ip, { count: 1, reset: now + WINDOW_MS });
+  else entry.count += 1;
+  global.count += 1;
+  return false;
+}
+
+// IP del cliente: x-real-ip lo fija la plataforma (Vercel) y el cliente no puede falsificarlo.
+// Si no existe, se usa el ÚLTIMO salto de x-forwarded-for (el que añade el proxy de confianza), no el primero.
+function clientIp(request: Request) {
+  const real = request.headers.get("x-real-ip")?.trim();
+  if (real) return real;
+  const hops = request.headers.get("x-forwarded-for")?.split(",").map((h) => h.trim()).filter(Boolean);
+  return hops?.[hops.length - 1] ?? "unknown";
+}
+
+// Solo peticiones desde este mismo sitio (frena el uso desde páginas ajenas; no sustituye al límite de gasto).
+function sameOrigin(request: Request) {
+  const origin = request.headers.get("origin");
+  if (!origin) return true; // llamadas sin navegador: las cubre el límite por IP
+  try {
+    return new URL(origin).host === request.headers.get("host");
+  } catch {
     return false;
   }
-  entry.count += 1;
-  return entry.count > LIMIT;
 }
 
 type Incoming = { role: unknown; content: unknown };
@@ -55,15 +90,16 @@ export async function POST(request: Request) {
     return Response.json({ error: "bad_request" }, { status: 400 });
   }
 
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
-  if (rateLimited(ip)) return Response.json({ error: "limit" }, { status: 429 });
+  if (!sameOrigin(request)) return Response.json({ error: "forbidden" }, { status: 403 });
+  if (rateLimited(clientIp(request))) return Response.json({ error: "limit" }, { status: 429 });
 
   try {
     const client = new Anthropic();
     const response = await client.messages.create({
       model: MODEL,
       max_tokens: 1024,
-      system: buildSystem(lang),
+      // Bloque largo y estable: se cachea para que cada mensaje cueste una fracción.
+      system: [{ type: "text", text: buildSystem(lang), cache_control: { type: "ephemeral" } }],
       messages,
       output_config: { effort: "low" },
     });

@@ -238,13 +238,16 @@ export const works: Work[] = [
   {
     slug: "pawalert",
     challenge: {
-      es: "Reto de desarrollo de software patrocinado por PolyWorks México.",
-      en: "Software development challenge sponsored by PolyWorks México.",
+      es: "Reto de desarrollo de software con PolyWorks México, con mentorías semanales. La pregunta de partida: ¿qué pasa después de que alguien encuentra a un animal en riesgo y decide ayudar? Un reporte es solo el inicio: hay que considerar evidencia, ubicación, urgencia, disponibilidad, transporte, seguimiento, hogares temporales, adopciones y privacidad.",
+      en: "Software development challenge with PolyWorks México, with weekly mentoring. The starting question: what happens after someone finds an animal at risk and decides to help? A report is only the beginning: evidence, location, urgency, availability, transport, follow-up, foster homes, adoptions and privacy all matter.",
     },
     features: [
-      { es: "Mapa de reportes.", en: "Report map." },
-      { es: "Gamificación y trust score.", en: "Gamification and trust score." },
-      { es: "Módulo de aliados.", en: "Allies module." },
+      { es: "Reportes desde la app o desde un flujo conversacional por WhatsApp, con fotos y ubicación, que llegan al mismo sistema.", en: "Reports from the app or from a conversational WhatsApp flow, with photos and location, all landing in the same system." },
+      { es: "Mapa de reportes y avistamientos.", en: "Map of reports and sightings." },
+      { es: "Coordinación de voluntarios, asignaciones y rutas.", en: "Volunteer coordination, assignments and routes." },
+      { es: "Seguimiento de rescates, eventos y procesos de adopción.", en: "Rescue tracking, events and adoption processes." },
+      { es: "Validaciones asistidas por IA para analizar evidencia visual.", en: "AI-assisted validation to analyze visual evidence." },
+      { es: "Gamificación, trust score y módulo de aliados.", en: "Gamification, trust score and an allies module." },
     ],
     roleTitle: "Full-stack Developer",
     roleAreas: [
@@ -254,18 +257,18 @@ export const works: Work[] = [
       { es: "Implementación de modelos de IA", en: "AI model implementation" },
     ],
     outcome: {
-      es: "2.º lugar en FEPRO. 330 tests con 100% de aprobación. Aliados reales: Evolución Animal y URSVA.",
-      en: "2nd place at FEPRO. 330 tests with a 100% pass rate. Real partners: Evolución Animal and URSVA.",
+      es: "2.º lugar en FEPRO BUAP 2026, categoría empresa con PolyWorks México. 330 tests con 100% de aprobación. Aliados reales: Evolución Animal y URSVA.",
+      en: "2nd place at FEPRO BUAP 2026, company category with PolyWorks México. 330 tests with a 100% pass rate. Real partners: Evolución Animal and URSVA.",
     },
     title: "PawAlert",
     kind: "project",
-    year: "2025",
-    badge: { es: "🥈 2.º lugar FEPRO", en: "🥈 2nd place FEPRO" },
+    year: "2025 – 2026",
+    badge: { es: "🥈 2.º lugar FEPRO 2026", en: "🥈 2nd place FEPRO 2026" },
     summary: {
-      es: "Plataforma de coordinación de rescate animal: mapa de reportes, gamificación, trust score y módulo de aliados. 330 tests con 100% de aprobación. Aliados reales: Evolución Animal y URSVA.",
-      en: "Animal-rescue coordination platform: report map, gamification, trust score and an allies module. 330 tests with a 100% pass rate. Real partners: Evolución Animal and URSVA.",
+      es: "Plataforma de coordinación de rescate animal: el reporte llega desde la app o WhatsApp y se valida, prioriza y da seguimiento hasta el rescate o la adopción. Incluye mapa, voluntarios y rutas, y validación de evidencia con IA. 330 tests con 100% de aprobación.",
+      en: "Animal-rescue coordination platform: a report arrives from the app or WhatsApp and is validated, prioritized and followed up through rescue or adoption. Includes a map, volunteers and routes, and AI evidence validation. 330 tests with a 100% pass rate.",
     },
-    stack: ["React Native", "Expo", "Supabase"],
+    stack: ["TypeScript", "React Native", "Expo", "Python", "FastAPI", "Supabase", "PostgreSQL / PostGIS", "Gemini", "WhatsApp Cloud API", "OSRM", "VROOM", "Firebase", "Jest", "Pytest", "Playwright"],
     demo: "https://paw-alert-pwa.vercel.app/map",
     repo: "https://github.com/nova-cz/PawAlert",
     image: "/images/projects/pawalert.webp",
@@ -309,13 +312,13 @@ export const works: Work[] = [
   {
     slug: "aquabi",
     challenge: {
-      es: "Reto del UPAEP Business Intelligence Hackathon 2026 (abril): un sistema directivo para un organismo operador de agua.",
-      en: "UPAEP Business Intelligence Hackathon 2026 challenge (April): an executive system for a water utility operator.",
+      es: "Reto real de Tekuno en el UPAEP Business Intelligence Hackathon 2026 (abril): mejorar la toma de decisiones de una operación de agua con datos. 24 horas y más de 184,000 registros históricos. Antes de graficar, había que entender la calidad de los datos.",
+      en: "Real Tekuno challenge at the UPAEP Business Intelligence Hackathon 2026 (April): improve decision-making for a water utility operation through data. 24 hours and more than 184,000 historical records. Before charting anything, we had to understand the data's quality.",
     },
     features: [
-      { es: "Salud financiera y eficiencia operativa.", en: "Financial health and operational efficiency." },
-      { es: "Estrategia de cobranza con mapa de calor de morosidad por fraccionamiento.", en: "Collections strategy with a delinquency heatmap by neighbourhood." },
-      { es: "Segmentación de usuarios y predicciones.", en: "User segmentation and forecasts." },
+      { es: "Auditoría de la base de datos original en Microsoft Access, limpieza y reorganización, y migración a una arquitectura en PostgreSQL.", en: "Audit of the original Microsoft Access database, cleaning and reorganization, and migration to a PostgreSQL-based architecture." },
+      { es: "Análisis exploratorio (EDA), segmentación RFM, clustering con K-Means y pronóstico de series de tiempo con Meta Prophet.", en: "Exploratory data analysis (EDA), RFM segmentation, K-Means clustering and time-series forecasting with Meta Prophet." },
+      { es: "Dashboard funcional con segmentos de clientes, riesgo de pago, tendencias financieras y un mapa de calor de morosidad por fraccionamiento para priorizar acciones.", en: "Functional dashboard with customer segments, payment risk, financial trends and a delinquency heatmap by neighbourhood to prioritize action." },
     ],
     roleTitle: "Full-stack Developer",
     roleAreas: [
@@ -325,18 +328,19 @@ export const works: Work[] = [
       { es: "Implementación de modelos de IA", en: "AI model implementation" },
     ],
     outcome: {
-      es: "2.º lugar en el UPAEP BI Hackathon 2026 (abril).",
-      en: "2nd place at the UPAEP BI Hackathon 2026 (April).",
+      es: "2.º lugar en el UPAEP BI Hackathon 2026 (abril), en un equipo de 4.",
+      en: "2nd place at the UPAEP BI Hackathon 2026 (April), in a team of 4.",
     },
     title: "AquaBI",
     kind: "project",
     year: "2026",
     badge: { es: "🥈 2.º lugar UPAEP BI Hackathon 2026", en: "🥈 2nd place UPAEP BI Hackathon 2026" },
     summary: {
-      es: "Sistema directivo para un organismo de agua: salud financiera, eficiencia operativa, estrategia de cobranza con mapa de calor de morosidad por fraccionamiento, segmentación de usuarios y predicciones.",
-      en: "Executive system for a water utility: financial health, operational efficiency, a collections strategy with a delinquency heatmap by neighbourhood, user segmentation and forecasts.",
+      es: "Solución de inteligencia de negocios para un organismo de agua, hecha en 24 horas con más de 184,000 registros históricos: de una base de datos en Access a un dashboard con segmentación, riesgo de pago, tendencias y pronósticos.",
+      en: "Business intelligence solution for a water utility, built in 24 hours from more than 184,000 historical records: from an Access database to a dashboard with segmentation, payment risk, trends and forecasts.",
     },
-    // TODO: stack de AquaBI (sin él, la ficha no muestra la fila de stack).
+    stack: ["Python", "Pandas", "scikit-learn", "Prophet", "Supabase / PostgreSQL", "Next.js", "Vercel", "Git & GitHub"],
+    demo: "https://hackathon-agua-upaep.onrender.com",
     image: "/images/projects/aquabi.webp",
     imageAlt: {
       es: "Pantalla de Estrategia de Cobranza de AquaBI con el mapa de calor de morosidad y la segmentación de usuarios",
@@ -578,8 +582,8 @@ export const awards: { text: L; detail?: L; photos?: Photo[] }[] = [
     detail: { es: "AquaBI · abril 2026", en: "AquaBI · April 2026" },
   },
   {
-    text: { es: "🥈 2.º lugar · FEPRO", en: "🥈 2nd place · FEPRO" },
-    detail: { es: "PawAlert · 2025", en: "PawAlert · 2025" },
+    text: { es: "🥈 2.º lugar · FEPRO BUAP 2026", en: "🥈 2nd place · FEPRO BUAP 2026" },
+    detail: { es: "PawAlert · FEPRO BUAP 2026, categoría empresa", en: "PawAlert · FEPRO BUAP 2026, company category" },
   },
   {
     text: { es: "🥉 3.er lugar · DigiEduHack 2025", en: "🥉 3rd place · DigiEduHack 2025" },

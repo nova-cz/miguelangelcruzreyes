@@ -456,6 +456,12 @@ export const experience: Job[] = [
   },
   {
     company: "ICPC Competitive Programming Club · BUAP",
+    photos: [
+      {
+        src: "/images/experience/icpc-code-rush.webp",
+        alt: { es: "Grupo de participantes y organizadores en Code Rush 2025", en: "Group of participants and organizers at Code Rush 2025" },
+      },
+    ] as Photo[],
     role: { es: "Miembro del club", en: "Club member" } as L,
     place: { es: "Puebla", en: "Puebla" } as L,
     period: same(""),
@@ -494,6 +500,12 @@ export const experience: Job[] = [
   },
   {
     company: "Camp Counselor · Sonlight Camp",
+    photos: [
+      {
+        src: "/images/experience/camp-sonlight.webp",
+        alt: { es: "Mike en el campamento de verano Sonlight, en Colorado", en: "Mike at Sonlight summer camp in Colorado" },
+      },
+    ] as Photo[],
     role: { es: "Consejero de campamento", en: "Camp Counselor" } as L,
     place: { es: "Pagosa Springs, Colorado (EE. UU.)", en: "Pagosa Springs, Colorado (USA)" } as L,
     period: { es: "veranos 2024 y 2025", en: "Summers 2024 and 2025" } as L,

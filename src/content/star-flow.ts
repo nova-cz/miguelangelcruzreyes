@@ -1,7 +1,7 @@
 import type { L } from "@/lib/i18n";
 import { awards, education, experience, site, skills, works } from "./site";
 
-// Árbol de preguntas y respuestas de la estrella. Todo es opción múltiple: no hay texto libre ni API.
+// Árbol de preguntas y respuestas de Nova, la estrella. Todo es opción múltiple: no hay texto libre ni API.
 // Las respuestas se arman con los datos de site.ts para no inventar nada ni duplicar contenido.
 
 export type Opt = { label: L; next?: string; href?: string; external?: boolean };
@@ -63,8 +63,8 @@ export const rootId = "root";
 export const flow: Record<string, Node> = {
   root: {
     text: l(
-      "¡Hola! Soy la estrella de Mike ⭐ Elige un tema y te cuento.",
-      "Hi! I'm Mike's star ⭐ Pick a topic and I'll tell you more.",
+      "¡Hola! Soy Nova, la estrella de Mike ⭐ Elige un tema y te cuento.",
+      "Hi! I'm Nova, Mike's star ⭐ Pick a topic and I'll tell you more.",
     ),
     options: [
       { label: l("¿Quién es Mike?", "Who is Mike?"), next: "who" },

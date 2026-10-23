@@ -25,8 +25,8 @@ export const site = {
 export const ui = {
   meta: {
     title: {
-      es: "Miguel Cruz · Agentes de IA y productos full-stack",
-      en: "Miguel Cruz · AI agents and full-stack products",
+      es: "Miguel Cruz",
+      en: "Miguel Cruz",
     } as L,
     description: {
       es: "Estudiante de Ciencias de la Computación que construye agentes de IA y productos full-stack. Busco internships de SWE e IA 2027.",
@@ -47,7 +47,7 @@ export const ui = {
     copy: { es: "Copiar", en: "Copy" } as L,
     copied: { es: "Copiado", en: "Copied" } as L,
     openCv: { es: "Abrir CV", en: "Open CV" } as L,
-    askStar: { es: "Pregunta a la estrella", en: "Ask the star" } as L,
+    askStar: { es: "Pregunta a Nova", en: "Ask Nova" } as L,
     askSoon: { es: "Pronto ⭐", en: "Soon ⭐" } as L,
     askStarShort: { es: "Pregunta", en: "Ask" } as L,
     headline: {
@@ -65,7 +65,7 @@ export const ui = {
     cta: { es: "Contáctame", en: "Get in touch" } as L,
     ctaWorks: { es: "Proyectos", en: "Works" } as L,
     hintPre: { es: "Presiona", en: "Press" } as L,
-    hintPost: { es: "para chatear con la estrella", en: "to chat with the star" } as L,
+    hintPost: { es: "para chatear con Nova", en: "to chat with Nova" } as L,
   },
   works: {
     title: { es: "Proyectos", en: "Works" } as L,
@@ -158,10 +158,10 @@ export const ui = {
     all: { es: "Todos los proyectos", en: "All projects" } as L,
   },
   chat: {
-    title: { es: "Estrella", en: "Star" } as L,
+    title: { es: "Nova", en: "Nova" } as L,
     subtitle: { es: "Pregúntame sobre Mike", en: "Ask me about Mike" } as L,
     bubble: { es: "¿Te ayudo?", en: "Can I help?" } as L,
-    open: { es: "Abrir chat con la estrella", en: "Open chat with the star" } as L,
+    open: { es: "Abrir chat con Nova", en: "Open chat with Nova" } as L,
     close: { es: "Cerrar chat", en: "Close chat" } as L,
     home: { es: "Menú principal", en: "Main menu" } as L,
     pick: { es: "Elige una opción", en: "Pick an option" } as L,

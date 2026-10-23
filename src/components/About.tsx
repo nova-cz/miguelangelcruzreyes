@@ -8,7 +8,6 @@ const chip = "rounded-full border border-line px-3 py-1 text-xs text-muted";
 const tile = "grid shrink-0 place-items-center rounded-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]";
 
 const medalBg: Record<string, string> = {
-  "🥈": "linear-gradient(145deg,#d4d8df,#7c8391)",
   "🥉": "linear-gradient(145deg,#e0a375,#8a5530)",
 };
 
@@ -146,13 +145,23 @@ export default function About({ lang }: { lang: Lang }) {
                   className="group flex items-center gap-4 rounded-2xl border border-line p-3.5 transition-[background-color,border-color] duration-200 hover:border-[#f5c451]/50 hover:bg-[#f5c451]/[0.06]"
                   style={{ background: "var(--card)" }}
                 >
-                  <span
-                    className={`${tile} size-12 text-xl transition-transform duration-200 ease-out group-hover:scale-105`}
-                    style={{ background: medal ? medalBg[medal] : "linear-gradient(145deg,#fde68a,#d4a017)", color: medal ? "#fff" : "#3b2a00" }}
-                    aria-hidden
-                  >
-                    {medal ?? <Trophy size={20} />}
-                  </span>
+                  {medal === "🥈" ? (
+                    <Image
+                      src="/images/medal-2.webp"
+                      alt=""
+                      width={48}
+                      height={48}
+                      className="size-12 shrink-0 drop-shadow-[0_0_3px_rgba(255,255,255,0.4)] transition-transform duration-200 ease-out group-hover:scale-110"
+                    />
+                  ) : (
+                    <span
+                      className={`${tile} size-12 text-xl transition-transform duration-200 ease-out group-hover:scale-105`}
+                      style={{ background: medal ? medalBg[medal] : "linear-gradient(145deg,#fde68a,#d4a017)", color: medal ? "#fff" : "#3b2a00" }}
+                      aria-hidden
+                    >
+                      {medal ?? <Trophy size={20} />}
+                    </span>
+                  )}
                   <div className="min-w-0">
                     <p className="text-[15px] leading-snug tracking-[-0.01em]">{title}</p>
                     {a.detail && (

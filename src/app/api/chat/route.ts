@@ -23,16 +23,18 @@ function rateLimited(ip: string) {
     global.reset = now + WINDOW_MS;
     for (const [key, entry] of hits) if (entry.reset < now) hits.delete(key); // limpia entradas vencidas
   }
-  global.count += 1;
-  if (global.count > GLOBAL_LIMIT) return true;
 
+  // 1) Límite por IP primero: una IP que ya excedió su cuota no consume el tope global de los demás.
   const entry = hits.get(ip);
-  if (!entry || entry.reset < now) {
-    hits.set(ip, { count: 1, reset: now + WINDOW_MS });
-    return false;
-  }
-  entry.count += 1;
-  return entry.count > LIMIT;
+  if (entry && entry.reset >= now && entry.count >= LIMIT) return true;
+
+  // 2) Tope global (gasto): solo cuentan las peticiones que sí llegarán a la API.
+  if (global.count >= GLOBAL_LIMIT) return true;
+
+  if (!entry || entry.reset < now) hits.set(ip, { count: 1, reset: now + WINDOW_MS });
+  else entry.count += 1;
+  global.count += 1;
+  return false;
 }
 
 // IP del cliente: x-real-ip lo fija la plataforma (Vercel) y el cliente no puede falsificarlo.
@@ -96,7 +98,8 @@ export async function POST(request: Request) {
     const response = await client.messages.create({
       model: MODEL,
       max_tokens: 1024,
-      system: buildSystem(lang),
+      // Bloque largo y estable: se cachea para que cada mensaje cueste una fracción.
+      system: [{ type: "text", text: buildSystem(lang), cache_control: { type: "ephemeral" } }],
       messages,
       output_config: { effort: "low" },
     });

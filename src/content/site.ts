@@ -163,33 +163,8 @@ export const ui = {
     bubble: { es: "¿Te ayudo?", en: "Can I help?" } as L,
     open: { es: "Abrir chat con la estrella", en: "Open chat with the star" } as L,
     close: { es: "Cerrar chat", en: "Close chat" } as L,
-    placeholder: { es: "Escribe tu pregunta…", en: "Type your question…" } as L,
-    send: { es: "Enviar", en: "Send" } as L,
-    greeting: {
-      es: "¡Hola! Soy la estrella de Mike. Respondo preguntas sobre su experiencia, proyectos, GitHub y disponibilidad.",
-      en: "Hi! I'm Mike's star. I answer questions about his experience, projects, GitHub and availability.",
-    } as L,
-    suggestions: {
-      es: ["¿Qué proyecto de IA ha hecho?", "¿Con qué tecnologías trabaja?", "¿Está disponible para internship?"],
-      en: ["What AI project has he built?", "What technologies does he work with?", "Is he available for an internship?"],
-    },
-    thinking: { es: "Pensando…", en: "Thinking…" } as L,
-    unavailable: {
-      es: "El chat aún no está activado. Escríbele a Mike por correo.",
-      en: "The chat isn't switched on yet. Email Mike directly.",
-    } as L,
-    busy: {
-      es: "Hay mucha demanda ahora mismo. Intenta de nuevo en un momento.",
-      en: "Lots of demand right now. Please try again in a moment.",
-    } as L,
-    limit: {
-      es: "Llegaste al límite de mensajes. Escríbele a Mike por correo.",
-      en: "You've reached the message limit. Email Mike directly.",
-    } as L,
-    error: {
-      es: "No pude responder. Intenta de nuevo.",
-      en: "I couldn't answer. Please try again.",
-    } as L,
+    home: { es: "Menú principal", en: "Main menu" } as L,
+    pick: { es: "Elige una opción", en: "Pick an option" } as L,
   },
   footer: {
     rights: {

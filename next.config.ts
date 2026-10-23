@@ -4,7 +4,20 @@ import type { NextConfig } from "next";
 // Aquí se exponen al navegador con el nombre que lee el sitio; si existe NEXT_PUBLIC_*, esa gana.
 const emailjs = (name: string) => process.env[`NEXT_PUBLIC_EMAILJS_${name}`] ?? process.env[`VITE_APP_EMAILJS_${name}`] ?? "";
 
+// Cabeceras de seguridad básicas para todo el sitio.
+const securityHeaders = [
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+];
+
 const nextConfig: NextConfig = {
+  // El código del navegador sale minificado y sin source maps (valor por defecto, fijado a propósito).
+  productionBrowserSourceMaps: false,
+  async headers() {
+    return [{ source: "/:path*", headers: securityHeaders }];
+  },
   env: {
     NEXT_PUBLIC_EMAILJS_SERVICE_ID: emailjs("SERVICE_ID"),
     NEXT_PUBLIC_EMAILJS_TEMPLATE_ID: emailjs("TEMPLATE_ID"),

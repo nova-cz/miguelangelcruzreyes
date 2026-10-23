@@ -18,8 +18,7 @@ export const site = {
   instagram: "https://www.instagram.com/migueczrs/",
   // TODO: reemplazar por Miguel_Cruz_CV_ES.pdf y Miguel_Cruz_CV_EN.pdf (hoy solo existe Resume2025.pdf).
   cv: { es: "/Resume2025.pdf", en: "/Resume2025.pdf" } as L,
-  // TODO: foto de perfil (por subir). Mientras tanto se muestran las iniciales.
-  avatar: null as string | null,
+  avatar: "/images/avatar.jpg" as string | null,
   initials: "MC",
 };
 

@@ -87,11 +87,11 @@ export default function About({ lang }: { lang: Lang }) {
       </ol>
 
       <div className="mt-5 grid gap-5 md:grid-cols-2">
-        <div className="glass-card flex flex-col p-6 sm:p-8">
+        <div className="glass-card glass-card-gold flex flex-col p-6 sm:p-8">
           <h3 className="text-3xl font-normal tracking-[-0.03em]">{tr(ui.about.educationTitle, lang)}</h3>
 
           <div className="mt-6 flex items-center gap-4">
-            <span className={`${tile} size-14 text-white`} style={{ background: "linear-gradient(145deg,#c084fc,#7e22ce)" }}>
+            <span className={`${tile} size-14`} style={{ background: "linear-gradient(145deg,#fde68a,#d4a017)", color: "#3b2a00" }}>
               <GraduationCap size={26} aria-hidden />
             </span>
             <div className="min-w-0">
@@ -103,11 +103,11 @@ export default function About({ lang }: { lang: Lang }) {
           <dl className="mt-6 grid grid-cols-2 gap-3">
             <div className="rounded-2xl border border-line p-4" style={{ background: "var(--card)" }}>
               <dt className="text-xs uppercase tracking-[0.08em] text-muted">{tr(ui.about.gpa, lang)}</dt>
-              <dd className="mt-1 text-3xl tracking-[-0.03em]">{education.gpa}</dd>
+              <dd className="text-gold mt-1 text-3xl tracking-[-0.03em]">{education.gpa}</dd>
             </div>
             <div className="rounded-2xl border border-line p-4" style={{ background: "var(--card)" }}>
               <dt className="text-xs uppercase tracking-[0.08em] text-muted">{tr(ui.about.graduation, lang)}</dt>
-              <dd className="mt-1 text-3xl tracking-[-0.03em]">
+              <dd className="text-gold mt-1 text-3xl tracking-[-0.03em]">
                 <T>{tr(education.graduation, lang)}</T>
               </dd>
             </div>
@@ -132,20 +132,23 @@ export default function About({ lang }: { lang: Lang }) {
           </ul>
         </div>
 
-        <div className="glass-card p-6 sm:p-8">
-          <h3 className="text-3xl font-normal tracking-[-0.03em]">{tr(ui.about.awardsTitle, lang)}</h3>
+        <div className="glass-card glass-card-gold p-6 sm:p-8">
+          <h3 className="flex items-center gap-3 text-3xl font-normal tracking-[-0.03em]">
+            <Trophy size={26} className="text-[#f5c451]" aria-hidden />
+            <span className="text-gold">{tr(ui.about.awardsTitle, lang)}</span>
+          </h3>
           <ul className="mt-5 space-y-2.5">
             {awards.map((a, i) => {
               const { medal, title } = splitMedal(tr(a.text, lang));
               return (
                 <li
                   key={i}
-                  className="group flex items-center gap-4 rounded-2xl border border-line p-3.5 transition-[background-color,border-color] duration-200 hover:border-white/25 hover:bg-white/[0.05]"
+                  className="group flex items-center gap-4 rounded-2xl border border-line p-3.5 transition-[background-color,border-color] duration-200 hover:border-[#f5c451]/50 hover:bg-[#f5c451]/[0.06]"
                   style={{ background: "var(--card)" }}
                 >
                   <span
                     className={`${tile} size-12 text-xl transition-transform duration-200 ease-out group-hover:scale-105`}
-                    style={{ background: medal ? medalBg[medal] : "linear-gradient(145deg,#e879f9,#a21caf)", color: "#fff" }}
+                    style={{ background: medal ? medalBg[medal] : "linear-gradient(145deg,#fde68a,#d4a017)", color: medal ? "#fff" : "#3b2a00" }}
                     aria-hidden
                   >
                     {medal ?? <Trophy size={20} />}

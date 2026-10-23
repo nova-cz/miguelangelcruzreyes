@@ -66,6 +66,7 @@ export default function ContactDialog({ lang }: { lang: Lang }) {
       return;
     }
     if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+      console.error("EmailJS: faltan variables NEXT_PUBLIC_EMAILJS_* en este build");
       setStatus("error");
       return;
     }
@@ -75,7 +76,8 @@ export default function ContactDialog({ lang }: { lang: Lang }) {
       await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form, { publicKey: PUBLIC_KEY });
       form.reset();
       setStatus("sent");
-    } catch {
+    } catch (err) {
+      console.error("EmailJS:", err);
       setStatus("error");
     }
   };

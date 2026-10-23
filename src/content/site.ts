@@ -149,6 +149,7 @@ export const ui = {
     role: { es: "Qué hice yo", en: "What I did" } as L,
     roleTitle: { es: "Rol", en: "Role" } as L,
     outcome: { es: "Resultado", en: "Outcome" } as L,
+    gallery: { es: "Reconocimiento", en: "Recognition" } as L,
     type: { es: "Tipo", en: "Type" } as L,
     stack: { es: "Stack", en: "Stack" } as L,
     year: { es: "Año", en: "Year" } as L,
@@ -190,6 +191,8 @@ export type Work = {
   image?: string;
   imageAlt?: L;
   status?: L;
+  // Fotos de reconocimiento del caso (premiación, diploma). Llevan tamaño para no mover el layout.
+  photos?: (Photo & { width: number; height: number })[];
   // Secciones de la página del caso. Solo se muestran las que tienen contenido.
   challenge?: L;
   features?: L[];
@@ -199,7 +202,7 @@ export type Work = {
   outcome?: L;
 };
 
-// Orden fijo: AgroCebada, PawAlert, TlamatIA, AI Resume Analyzer y luego clientes (3 columnas x 2 filas).
+// Orden fijo: AgroCebada, PawAlert, TlamatIA, AquaBI y luego clientes (3 columnas x 2 filas).
 export const works: Work[] = [
   {
     slug: "agrocebada",
@@ -304,30 +307,61 @@ export const works: Work[] = [
     imageAlt: { es: "Pantalla principal de TlamatIA", en: "TlamatIA landing screen" },
   },
   {
-    slug: "resume-ai",
+    slug: "aquabi",
     challenge: {
-      es: "Revisar un currículum contra una vacante concreta suele ser a ojo. La idea fue medirlo con IA y llevar el control de cada postulación.",
-      en: "Checking a resume against a specific job is usually done by eye. The idea was to measure it with AI and keep track of every application.",
+      es: "Reto del UPAEP Business Intelligence Hackathon 2026 (abril): un sistema directivo para un organismo operador de agua.",
+      en: "UPAEP Business Intelligence Hackathon 2026 challenge (April): an executive system for a water utility operator.",
     },
     features: [
-      { es: "Subes tu currículum y la vacante (empresa y puesto).", en: "Upload your resume and the job (company and title)." },
-      { es: "Calificación sobre 100 con retroalimentación hecha por IA.", en: "A score out of 100 with AI-powered feedback." },
-      { es: "Historial de postulaciones con la calificación de cada una.", en: "Application history with each one's score." },
+      { es: "Salud financiera y eficiencia operativa.", en: "Financial health and operational efficiency." },
+      { es: "Estrategia de cobranza con mapa de calor de morosidad por fraccionamiento.", en: "Collections strategy with a delinquency heatmap by neighbourhood." },
+      { es: "Segmentación de usuarios y predicciones.", en: "User segmentation and forecasts." },
     ],
-    title: "AI Resume Analyzer",
+    roleTitle: "Full-stack Developer",
+    roleAreas: [
+      { es: "Backend", en: "Backend" },
+      { es: "Frontend", en: "Frontend" },
+      { es: "Base de datos", en: "Database" },
+      { es: "Implementación de modelos de IA", en: "AI model implementation" },
+    ],
+    outcome: {
+      es: "2.º lugar en el UPAEP BI Hackathon 2026 (abril).",
+      en: "2nd place at the UPAEP BI Hackathon 2026 (April).",
+    },
+    title: "AquaBI",
     kind: "project",
-    year: "2025",
+    year: "2026",
+    badge: { es: "🥈 2.º lugar UPAEP BI Hackathon 2026", en: "🥈 2nd place UPAEP BI Hackathon 2026" },
     summary: {
-      es: "Aplicación web para llevar el control de tus postulaciones y calificar tu currículum con IA: subes el CV y la vacante, y recibes una puntuación con retroalimentación.",
-      en: "Web app to track your job applications and rate your resume with AI: upload the CV and the job, and get a score with feedback.",
+      es: "Sistema directivo para un organismo de agua: salud financiera, eficiencia operativa, estrategia de cobranza con mapa de calor de morosidad por fraccionamiento, segmentación de usuarios y predicciones.",
+      en: "Executive system for a water utility: financial health, operational efficiency, a collections strategy with a delinquency heatmap by neighbourhood, user segmentation and forecasts.",
     },
-    stack: ["React", "TypeScript", "Tailwind", "Anthropic API", "Puter.js"],
-    repo: "https://github.com/nova-cz/ai-resume-analyzer",
-    image: "/images/projects/resume-ai.webp",
+    // TODO: stack de AquaBI (sin él, la ficha no muestra la fila de stack).
+    image: "/images/projects/aquabi.webp",
     imageAlt: {
-      es: "Pantalla principal de la app con el historial de postulaciones y sus calificaciones",
-      en: "App home screen with the application history and their scores",
+      es: "Pantalla de Estrategia de Cobranza de AquaBI con el mapa de calor de morosidad y la segmentación de usuarios",
+      en: "AquaBI Collections Strategy screen with the delinquency heatmap and user segmentation",
     },
+    photos: [
+      {
+        src: "/images/aquabi/diploma.webp",
+        width: 800,
+        height: 1422,
+        alt: {
+          es: "Diploma de 2.º lugar en el Hackathon de Inteligencia de Negocios UPAEP 2026",
+          en: "2nd place diploma from the UPAEP Business Intelligence Hackathon 2026",
+        },
+      },
+      {
+        src: "/images/aquabi/premiacion.webp",
+        width: 1600,
+        height: 1200,
+        alt: {
+          es: "Premiación del Hackathon de Inteligencia de Negocios UPAEP 2026",
+          en: "Awards ceremony of the UPAEP Business Intelligence Hackathon 2026",
+        },
+      },
+    ],
   },
   {
     slug: "be-browed",
@@ -372,6 +406,7 @@ export const works: Work[] = [
 ];
 
 export const otherProjects = [
+  { name: "AI Resume Analyzer", stack: "React, TypeScript, Anthropic API", href: "https://github.com/nova-cz/ai-resume-analyzer" },
   { name: "Lane Line Detection", stack: "Python, OpenCV, NumPy", href: "https://github.com/nova-cz/adaptive-lane-detection" },
   { name: "TrackMyBus", stack: "FEPRO 2024", href: "https://github.com/nova-cz/TrackMyBus" },
   { name: "SATelite", stack: "Talent Land 2025", href: "https://github.com/nova-cz/talent-hackathon-2025" },

@@ -118,10 +118,6 @@ export const ui = {
       es: "No se pudo enviar. Intenta de nuevo o escribe directo a",
       en: "Couldn't send. Try again or write directly to",
     } as L,
-    fallback: {
-      es: "Se abrió tu app de correo con el mensaje listo para enviar.",
-      en: "Your email app opened with the message ready to send.",
-    } as L,
     close: { es: "Cerrar", en: "Close" } as L,
   },
   gallery: {
@@ -199,7 +195,7 @@ export type Work = {
   outcome?: L;
 };
 
-// Orden fijo: AgroCebada, PawAlert, TlamatIA, AquaBI y luego clientes (3 columnas x 2 filas).
+// Orden fijo: AgroCebada, PawAlert, TlamatIA, AI Resume Analyzer y luego clientes (3 columnas x 2 filas).
 export const works: Work[] = [
   {
     slug: "agrocebada",
@@ -256,6 +252,7 @@ export const works: Work[] = [
     },
     title: "PawAlert",
     kind: "project",
+    year: "2025",
     badge: { es: "🥈 2.º lugar FEPRO", en: "🥈 2nd place FEPRO" },
     summary: {
       es: "Plataforma de coordinación de rescate animal: mapa de reportes, gamificación, trust score y módulo de aliados. 330 tests con 100% de aprobación. Aliados reales: Evolución Animal y URSVA.",
@@ -304,37 +301,30 @@ export const works: Work[] = [
     imageAlt: { es: "Pantalla principal de TlamatIA", en: "TlamatIA landing screen" },
   },
   {
-    slug: "aquabi",
+    slug: "resume-ai",
     challenge: {
-      es: "Reto del UPAEP Business Intelligence Hackathon 2026 (abril): un sistema directivo para un organismo operador de agua.",
-      en: "UPAEP Business Intelligence Hackathon 2026 challenge (April): an executive system for a water utility operator.",
+      es: "Revisar un currículum contra una vacante concreta suele ser a ojo. La idea fue medirlo con IA y llevar el control de cada postulación.",
+      en: "Checking a resume against a specific job is usually done by eye. The idea was to measure it with AI and keep track of every application.",
     },
     features: [
-      { es: "Salud financiera y eficiencia operativa.", en: "Financial health and operational efficiency." },
-      { es: "Estrategia de cobranza con mapa de calor de morosidad por fraccionamiento.", en: "Collections strategy with a delinquency heatmap by neighbourhood." },
-      { es: "Segmentación de usuarios y predicciones.", en: "User segmentation and forecasts." },
+      { es: "Subes tu currículum y la vacante (empresa y puesto).", en: "Upload your resume and the job (company and title)." },
+      { es: "Calificación sobre 100 con retroalimentación hecha por IA.", en: "A score out of 100 with AI-powered feedback." },
+      { es: "Historial de postulaciones con la calificación de cada una.", en: "Application history with each one's score." },
     ],
-    roleTitle: "Full-stack Developer",
-    roleAreas: [
-      { es: "Backend", en: "Backend" },
-      { es: "Frontend", en: "Frontend" },
-      { es: "Base de datos", en: "Database" },
-      { es: "Implementación de modelos de IA", en: "AI model implementation" },
-    ],
-    outcome: {
-      es: "2.º lugar en el UPAEP BI Hackathon 2026 (abril).",
-      en: "2nd place at the UPAEP BI Hackathon 2026 (April).",
-    },
-    title: "AquaBI",
+    title: "AI Resume Analyzer",
     kind: "project",
-    year: "2026",
-    badge: { es: "🥈 2.º lugar UPAEP BI Hackathon 2026", en: "🥈 2nd place UPAEP BI Hackathon 2026" },
+    year: "2025",
     summary: {
-      es: "Sistema directivo para un organismo de agua: salud financiera, eficiencia operativa, estrategia de cobranza con mapa de calor de morosidad por fraccionamiento, segmentación de usuarios y predicciones.",
-      en: "Executive system for a water utility: financial health, operational efficiency, a collections strategy with a delinquency heatmap by neighbourhood, user segmentation and forecasts.",
+      es: "Aplicación web para llevar el control de tus postulaciones y calificar tu currículum con IA: subes el CV y la vacante, y recibes una puntuación con retroalimentación.",
+      en: "Web app to track your job applications and rate your resume with AI: upload the CV and the job, and get a score with feedback.",
     },
-    // TODO: stack y mi rol en AquaBI. El repo es privado (danielalira20/hackathon-agua-upaep).
-    stack: ["TODO: stack"],
+    stack: ["React", "TypeScript", "Tailwind", "Anthropic API", "Puter.js"],
+    repo: "https://github.com/nova-cz/ai-resume-analyzer",
+    image: "/images/projects/resume-ai.webp",
+    imageAlt: {
+      es: "Pantalla principal de la app con el historial de postulaciones y sus calificaciones",
+      en: "App home screen with the application history and their scores",
+    },
   },
   {
     slug: "be-browed",
@@ -403,8 +393,7 @@ export type Job = {
 export const experience: Job[] = [
   {
     company: "Goalpost Group",
-    // TODO: elegir un solo título. LinkedIn y CV dicen "Marketing Technology Manager".
-    role: todo("título del puesto"),
+    role: same("Marketing Technology Manager"),
     place: { es: "East Lansing, MI (EE. UU.) · Remoto", en: "East Lansing, MI (USA) · Remote" } as L,
     period: { es: "nov 2025 – presente", en: "Nov 2025 – present" } as L,
     bullets: [
@@ -435,8 +424,10 @@ export const experience: Job[] = [
         es: "Desarrollo web con Vue.js y Supabase; trabajo ágil con Slack y Linear.",
         en: "Web development with Vue.js and Supabase; agile workflow with Slack and Linear.",
       },
-      // TODO: descripción. El CV dice "plataforma para mejorar el inglés técnico y la empleabilidad de devs LATAM"; LinkedIn dice "fintech platform".
-      todo("descripción del proyecto"),
+      {
+        es: "Plataforma para aprender inglés especializada en desarrolladores y gente de computación.",
+        en: "A platform for learning English, specialized for developers and computing professionals.",
+      },
     ] as L[],
     logo: "/images/growmo/logo.webp",
   },
@@ -454,8 +445,7 @@ export const experience: Job[] = [
     ] as Photo[],
     role: { es: "Mentor", en: "Mentor" } as L,
     place: { es: "Puebla", en: "Puebla" } as L,
-    // TODO: fechas. El CV dice Jun 2022 – Dic 2024; LinkedIn dice Ene 2023 – Ene 2024.
-    period: todo("fechas"),
+    period: same("2022 – 2023"),
     bullets: [
       {
         es: "Modelado 3D (Onshape, SolidWorks), mecánica, electrónica y Java.",
@@ -522,8 +512,7 @@ export const education = {
     es: "Ingeniería en Ciencias de la Computación · promedio 9.8/10",
     en: "Computer Science Engineering · GPA 9.8/10",
   } as L,
-  // TODO: graduación. El CV dice "Summer 2027", pero termino materias en junio de 2027 y me gradúo en otoño de 2027.
-  graduation: todo("fecha de graduación"),
+  graduation: { es: "Diciembre 2027", en: "December 2027" } as L,
   courses: {
     es: "Estructuras de datos, POO, Bases de datos avanzadas, Sistemas operativos, Ciberseguridad, Redes (CISCO), IA, IoT, Robótica, Álgebra lineal, Matemáticas discretas.",
     en: "Data Structures, OOP, Advanced Databases, Operating Systems, Cybersecurity, Networks (CISCO), AI, IoT, Robotics, Linear Algebra, Discrete Math.",
@@ -541,8 +530,7 @@ export const awards: { text: L; detail?: L; photos?: Photo[] }[] = [
   },
   {
     text: { es: "🥈 2.º lugar · FEPRO", en: "🥈 2nd place · FEPRO" },
-    // TODO: año del FEPRO de PawAlert.
-    detail: { es: "PawAlert · TODO: año", en: "PawAlert · TODO: year" },
+    detail: { es: "PawAlert · 2025", en: "PawAlert · 2025" },
   },
   {
     text: { es: "🥉 3.er lugar · DigiEduHack 2025", en: "🥉 3rd place · DigiEduHack 2025" },

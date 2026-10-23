@@ -296,7 +296,6 @@ export const works: Work[] = [
     },
     stack: ["React", "TypeScript", "Tailwind", "Gemini"],
     demo: "https://tlamatia-plans-nuevo.vercel.app",
-    // TODO: el repo es privado (danielalira20). Hacerlo público o quitar el botón "Code".
     image: "/images/tlamatia/landing.webp",
     imageAlt: { es: "Pantalla principal de TlamatIA", en: "TlamatIA landing screen" },
   },
@@ -371,7 +370,6 @@ export const works: Work[] = [
 export const otherProjects = [
   { name: "Lane Line Detection", stack: "Python, OpenCV, NumPy", href: "https://github.com/nova-cz/adaptive-lane-detection" },
   { name: "TrackMyBus", stack: "FEPRO 2024", href: "https://github.com/nova-cz/TrackMyBus" },
-  // TODO: confirmar que SATelite es el repo talent-hackathon-2025.
   { name: "SATelite", stack: "Talent Land 2025", href: "https://github.com/nova-cz/talent-hackathon-2025" },
   { name: "ExpenseTracker", stack: "Swift / SwiftUI", href: "https://github.com/nova-cz/ExpenseTracker" },
   // Sin repositorio público: enlaza al perfil.
@@ -417,8 +415,7 @@ export const experience: Job[] = [
     company: "Growmo Tech",
     role: { es: "Web Developer Intern", en: "Web Developer Intern" } as L,
     place: { es: "Remoto", en: "Remote" } as L,
-    // TODO: fechas. El CV dice May–Ago 2025; LinkedIn dice Sep–Nov 2025.
-    period: todo("fechas"),
+    period: { es: "sep – nov 2025", en: "Sep – Nov 2025" } as L,
     bullets: [
       {
         es: "Desarrollo web con Vue.js y Supabase; trabajo ágil con Slack y Linear.",

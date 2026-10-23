@@ -110,10 +110,10 @@ export default function Mascot({ lang }: { lang: Lang }) {
     return () => window.removeEventListener("star:open", onOpen);
   }, []);
 
-  // Atajo ⌘/Ctrl + Alt + / y Escape.
+  // Atajo ⌘/Ctrl + Alt + S y Escape.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.altKey && e.code === "Slash") {
+      if ((e.metaKey || e.ctrlKey) && e.altKey && e.code === "KeyS") {
         e.preventDefault();
         setOpen((v) => !v);
       } else if (e.key === "Escape") {

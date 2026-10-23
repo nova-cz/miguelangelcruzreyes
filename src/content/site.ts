@@ -92,6 +92,10 @@ export const ui = {
     awardsTitle: { es: "Premios", en: "Awards" } as L,
     skillsTitle: { es: "Skills", en: "Skills" } as L,
     educationTitle: { es: "Educación", en: "Education" } as L,
+    gpa: { es: "Promedio", en: "GPA" } as L,
+    graduation: { es: "Graduación", en: "Graduation" } as L,
+    coursesTitle: { es: "Materias relevantes", en: "Relevant coursework" } as L,
+    languagesTitle: { es: "Idiomas", en: "Languages" } as L,
   },
   contact: {
     title: { es: "Hablemos", en: "Let's talk" } as L,
@@ -518,9 +522,10 @@ export const experience: Job[] = [
 export const education = {
   school: "BUAP",
   degree: {
-    es: "Ingeniería en Ciencias de la Computación · promedio 9.8/10",
-    en: "Computer Science Engineering · GPA 9.8/10",
+    es: "Ingeniería en Ciencias de la Computación",
+    en: "Computer Science Engineering",
   } as L,
+  gpa: "9.8/10",
   graduation: { es: "Diciembre 2027", en: "December 2027" } as L,
   courses: {
     es: "Estructuras de datos, POO, Bases de datos avanzadas, Sistemas operativos, Ciberseguridad, Redes (CISCO), IA, IoT, Robótica, Álgebra lineal, Matemáticas discretas.",
